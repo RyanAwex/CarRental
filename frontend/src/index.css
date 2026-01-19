@@ -1,0 +1,185 @@
+@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap");
+.indie {
+  font-family: "Indie Flower", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+* {
+  /* padding: 0;
+  margin: 0; */
+  box-sizing: border-box;
+}
+html,
+body {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar - Modern Dark Theme */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.5);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #6366f1 0%, #8b5cf6 100%);
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #818cf8 0%, #a78bfa 100%);
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-corner {
+  background: rgba(15, 23, 42, 0.5);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #6366f1 rgba(15, 23, 42, 0.5);
+}
+
+/* Hide scrollbar on main pages */
+html.no-scrollbar::-webkit-scrollbar,
+body.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+}
+html.no-scrollbar,
+body.no-scrollbar {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+  overflow: -moz-scrollbars-none !important;
+}
+
+/* Scrollbar hide utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Style the options within the select */
+@layer components {
+  .full-input {
+    @apply bg-gray-50 border border-gray-300 text-gray-900 focus:ring-indigo-500 dark:bg-gray-800 dark:border-white/10 dark:text-white rounded-sm py-2 px-3 placeholder:text-gray-400 dark:placeholder:text-gray-400 focus:outline-0 focus:border-indigo-500;
+  }
+  select {
+    @apply bg-gray-50 border border-gray-300 text-gray-900 dark:bg-gray-800 dark:border-white/10 dark:text-gray-400 p-2 w-52 rounded-sm appearance-none focus:outline-0;
+  }
+  select option {
+    @apply bg-white text-gray-900 dark:bg-gray-800 dark:text-white;
+  }
+  .services-input {
+    @apply grid md:grid-cols-[1fr_2fr] lg:grid-cols-[1fr_3fr] gap-2;
+  }
+  .services-input input {
+    @apply bg-gray-50 border border-gray-300 text-gray-900 dark:bg-gray-800 dark:border-white/10 dark:text-white rounded-sm py-2 px-3 placeholder:text-gray-400 dark:placeholder:text-gray-400 focus:outline-0 focus:border-indigo-500;
+  }
+}
+
+/* Custom Range Slider - Light/Dark Theme */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: #e5e7eb;
+  border-radius: 9999px;
+  outline: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.dark input[type="range"] {
+  background: rgba(51, 65, 85, 0.5);
+}
+
+/* Webkit (Chrome, Safari, Edge) */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  margin-top: -6px; /* Center thumb vertically on 6px track */
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(99, 102, 241, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 2px solid white;
+}
+
+.dark input[type="range"]::-webkit-slider-thumb {
+  border-color: #1e293b;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.5);
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.5);
+}
+
+input[type="range"]:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+}
+
+/* Firefox */
+input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  margin-top: -6px; /* Center thumb vertically on 6px track */
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(99, 102, 241, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 2px solid white;
+}
+
+.dark input[type="range"]::-moz-range-thumb {
+  border-color: #1e293b;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.5);
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.5);
+}
+
+input[type="range"]::-moz-range-track {
+  background: #e5e7eb;
+  border-radius: 9999px;
+  height: 6px;
+}
+
+.dark input[type="range"]::-moz-range-track {
+  background: rgba(51, 65, 85, 0.5);
+}
+
+/* Progress fill for Webkit (requires JS for dynamic fill, this is base styling) */
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 9999px;
+  background: #e5e7eb;
+}
+
+.dark input[type="range"]::-webkit-slider-runnable-track {
+  background: rgba(51, 65, 85, 0.5);
+}
