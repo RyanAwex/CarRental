@@ -55,8 +55,8 @@ function FreeDaysTiersSection() {
   const updateTier = (id, field, value) => {
     setTiers(
       tiers.map((tier) =>
-        tier.id === id ? { ...tier, [field]: parseInt(value) || 0 } : tier
-      )
+        tier.id === id ? { ...tier, [field]: parseInt(value) || 0 } : tier,
+      ),
     );
   };
 
@@ -292,8 +292,8 @@ function InsuranceOptionsSection() {
               ...opt,
               [field]: field === "price_per_day" ? parseInt(value) || 0 : value,
             }
-          : opt
-      )
+          : opt,
+      ),
     );
   };
 
@@ -503,7 +503,7 @@ export default function PromotionsEditor() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="bg-gray-100 dark:bg-linear-to-r dark:from-slate-800 dark:to-slate-900 rounded-2xl p-6 border border-gray-200 dark:border-white/10">
+      <div className="bg-gray-100 dark:bg-gradient-to-r dark:from-slate-800 dark:to-slate-900 rounded-2xl p-6 border border-gray-200 dark:border-white/10">
         <div className="flex items-start gap-4">
           <div className="p-3 bg-indigo-100 dark:bg-indigo-600/20 rounded-xl">
             <Gift size={24} className="text-indigo-600 dark:text-indigo-400" />

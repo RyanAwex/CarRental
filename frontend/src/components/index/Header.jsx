@@ -22,7 +22,7 @@ const Header = ({ cartCount, isScrolled, session }) => {
         className={`fixed w-full z-40 top-0 transition-all  ${
           isScrolled
             ? "bg-white/80 border-b border-gray-200 dark:bg-slate-950/90 backdrop-blur-xl py-2 shadow-2xl shadow-black/20 dark:border-white/5"
-            : "bg-linear-to-b from-white/80 to-transparent dark:from-slate-950/80 dark:to-transparent py-4"
+            : "bg-gradient-to-b from-white/80 to-transparent dark:from-slate-950/80 dark:to-transparent py-4"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -32,12 +32,12 @@ const Header = ({ cartCount, isScrolled, session }) => {
               to="/"
               className="flex items-center gap-3 cursor-pointer group"
             >
-              <div className="w-10 h-10 bg-linear-to-tr from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center font-bold text-white shadow-lg shadow-indigo-500/30 group-hover:shadow-indigo-500/50 transition-all  group-hover:scale-105">
+              <div className="w-10 h-10 bg-gradient-to-tr from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center font-bold text-white shadow-lg shadow-indigo-500/30 group-hover:shadow-indigo-500/50 transition-all  group-hover:scale-105">
                 R
               </div>
               <span className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
                 Rent
-                <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-400 to-purple-400">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">
                   X
                 </span>
               </span>
@@ -67,7 +67,7 @@ const Header = ({ cartCount, isScrolled, session }) => {
                   className="group-hover:text-indigo-400 transition-colors"
                 />
                 {cartCount > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 w-5 h-5 bg-linear-to-r from-indigo-500 to-purple-500 rounded-full text-[10px] font-bold flex items-center justify-center text-white border-2 border-slate-950 animate-pulse">
+                  <span className="absolute -top-0.5 -right-0.5 w-5 h-5 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full text-[10px] font-bold flex items-center justify-center text-white border-2 border-slate-950 animate-pulse">
                     {cartCount}
                   </span>
                 )}
@@ -77,14 +77,14 @@ const Header = ({ cartCount, isScrolled, session }) => {
                 session.user.id === import.meta.env.VITE_ADMIN ? (
                   <Link
                     to="/dashboard"
-                    className="hidden md:flex items-center gap-2 bg-linear-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-500 hover:to-purple-500 px-5 py-2.5 rounded-full text-sm font-bold transition-all shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40"
+                    className="hidden md:flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-500 hover:to-purple-500 px-5 py-2.5 rounded-full text-sm font-bold transition-all shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40"
                   >
                     Admin Panel
                   </Link>
                 ) : (
                   <Link
                     to="/profile"
-                    className="hidden md:flex items-center gap-2 bg-linear-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-500 hover:to-purple-500 px-5 py-2.5 rounded-full text-sm font-bold transition-all shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40"
+                    className="hidden md:flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-500 hover:to-purple-500 px-5 py-2.5 rounded-full text-sm font-bold transition-all shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40"
                   >
                     Profile
                   </Link>
@@ -138,7 +138,7 @@ const Header = ({ cartCount, isScrolled, session }) => {
 
       {/* Mobile Menu Slide-in */}
       <div
-        className={`fixed top-0 right-0 h-full w-72 bg-linear-to-b from-white to-gray-50 dark:from-slate-900 dark:to-slate-950 z-50 transform transition-transform  ease-out md:hidden border-l border-gray-200 dark:border-white/10 shadow-2xl ${
+        className={`fixed top-0 right-0 h-full w-72 bg-gradient-to-b from-white to-gray-50 dark:from-slate-900 dark:to-slate-950 z-50 transform transition-transform  ease-out md:hidden border-l border-gray-200 dark:border-white/10 shadow-2xl ${
           mobileMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -146,7 +146,7 @@ const Header = ({ cartCount, isScrolled, session }) => {
           <div className="flex justify-between items-center mb-8">
             <span className="text-xl font-bold text-gray-900 dark:text-white">
               Rent
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-400 to-purple-400">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">
                 X
               </span>
             </span>
@@ -185,7 +185,7 @@ const Header = ({ cartCount, isScrolled, session }) => {
                 Cart
               </span>
               {cartCount > 0 && (
-                <span className="w-6 h-6 bg-linear-to-r from-indigo-500 to-purple-500 rounded-full text-[10px] font-bold flex items-center justify-center">
+                <span className="w-6 h-6 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full text-[10px] font-bold flex items-center justify-center">
                   {cartCount}
                 </span>
               )}
@@ -195,7 +195,7 @@ const Header = ({ cartCount, isScrolled, session }) => {
                 <Link
                   to="/dashboard"
                   onClick={closeMobileMenu}
-                  className="block w-full bg-linear-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-500 hover:to-purple-500 px-4 py-3 rounded-xl text-center text-sm font-bold transition-all shadow-lg shadow-indigo-500/25"
+                  className="block w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-500 hover:to-purple-500 px-4 py-3 rounded-xl text-center text-sm font-bold transition-all shadow-lg shadow-indigo-500/25"
                 >
                   Admin Panel
                 </Link>
@@ -203,7 +203,7 @@ const Header = ({ cartCount, isScrolled, session }) => {
                 <Link
                   to="/profile"
                   onClick={closeMobileMenu}
-                  className="block w-full bg-linear-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-500 hover:to-purple-500 px-4 py-3 rounded-xl text-center text-sm font-bold transition-all shadow-lg shadow-indigo-500/25"
+                  className="block w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-500 hover:to-purple-500 px-4 py-3 rounded-xl text-center text-sm font-bold transition-all shadow-lg shadow-indigo-500/25"
                 >
                   Profile
                 </Link>

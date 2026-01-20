@@ -38,7 +38,7 @@ export default function Index() {
         session={session}
       />
 
-      <ChatIcon />
+      <ChatIcon appData={getSection("footer")} />
 
       <main>
         <Hero appData={getSection("hero")} />

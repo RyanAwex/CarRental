@@ -207,14 +207,14 @@ function UserProfile() {
   // Calculate stats from real data
   const totalRentals = rentHistory.length;
   const activeRentals = rentHistory.filter(
-    (r) => r.status === "active" || r.status === "confirmed"
+    (r) => r.status === "active" || r.status === "confirmed",
   ).length;
   const completedRentals = rentHistory.filter(
-    (r) => r.status === "completed"
+    (r) => r.status === "completed",
   ).length;
   const totalSpent = rentHistory.reduce(
     (acc, r) => acc + Number(r.totalPrice),
-    0
+    0,
   );
 
   return (
@@ -226,12 +226,12 @@ function UserProfile() {
         showNav={false}
       />
 
-      <div className="max-w-4xl mx-auto px-4 py-8 pt-24">
+      <div className="max-w-3xl mx-auto px-4 py-8 pt-24">
         {/* User Info Card */}
         <div className="p-6 bg-gray-50 dark:bg-slate-800/50 backdrop-blur rounded-2xl border border-gray-200 dark:border-white/10 mb-8 shadow-md dark:shadow-none">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 bg-linear-to-tr from-indigo-600 to-purple-600 rounded-2xl flex items-center justify-center text-white text-2xl font-bold shadow-lg shadow-indigo-500/20">
+              <div className="w-16 h-16 bg-gradient-to-tr from-indigo-600 to-purple-600 rounded-2xl flex items-center justify-center text-white text-2xl font-bold shadow-lg shadow-indigo-500/20">
                 {user?.email?.charAt(0).toUpperCase() || "U"}
               </div>
               <div>

@@ -11,7 +11,7 @@ const WhyUs = ({ appData, loading }) => {
   const lastPart = title.substring(lastSpaceIndex + 1);
 
   return (
-    <section className="py-24 bg-gray-100 dark:bg-slate-900/50">
+    <section className="py-24 bg-gray-100 dark:bg-slate-950/50">
       {loading && (
         <div className="col-span-full text-center text-indigo-600 dark:text-indigo-400 text-lg py-40">
           Loading section...
@@ -20,15 +20,15 @@ const WhyUs = ({ appData, loading }) => {
       {!loading && (
         <div className="max-w-7xl px-4 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center mx-auto">
           <div className="relative flex items-center justify-center order-2 lg:order-1">
-            <div className="absolute -inset-4 bg-indigo-400/20 dark:bg-indigo-600/20 rounded-3xl lg:rounded-4xl blur-xl -z-10"></div>
+            <div className="absolute -inset-4 bg-indigo-400/20 dark:bg-indigo-600/20 rounded-3xl lg:rounded-3xl blur-xl -z-10"></div>
             <img
               src={imageUrl}
               alt="Why Us"
-              className="rounded-3xl lg:rounded-4xl shadow-2xl border border-gray-200 dark:border-white/10 w-full max-h-80 sm:max-h-96 lg:max-h-112 object-cover object-center"
+              className="rounded-3xl lg:rounded-3xl shadow-2xl border border-gray-200 dark:border-white/10 w-full max-h-80 sm:max-h-96 lg:max-h-112 object-cover object-center"
             />
           </div>
           <div className="order-1 lg:order-2">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6">
               {firstPart}{" "}
               <span className="text-indigo-600 dark:text-indigo-500">
                 {" "}

@@ -86,15 +86,15 @@ export default function Container() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 h-full bg-white dark:bg-linear-to-b dark:from-slate-900 dark:via-slate-900 dark:to-slate-950 border-r border-gray-200 dark:border-white/5 flex flex-col z-50 transition-all  shadow-2xl ${
+        className={`fixed top-0 left-0 h-full bg-white dark:bg-gradient-to-b dark:from-slate-900 dark:via-slate-900 dark:to-slate-950 border-r border-gray-200 dark:border-white/5 flex flex-col z-50 transition-all  shadow-2xl ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0 ${sidebarCollapsed ? "lg:w-20" : "lg:w-64"} w-72`}
       >
         {/* Sidebar Header */}
-        <div className="p-4 lg:p-6 border-b border-gray-200 dark:border-white/5 flex items-center justify-between bg-linear-to-r from-indigo-50 to-purple-50 dark:from-indigo-600/10 dark:to-purple-600/10">
+        <div className="p-4 lg:p-6 border-b border-gray-200 dark:border-white/5 flex items-center justify-between bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-600/10 dark:to-purple-600/10">
           <div className={`${sidebarCollapsed ? "lg:hidden" : ""}`}>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-linear-to-tr from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center font-bold text-white shadow-lg shadow-indigo-500/30">
+              <div className="w-10 h-10 bg-gradient-to-tr from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center font-bold text-white shadow-lg shadow-indigo-500/30">
                 R
               </div>
               <div>
@@ -112,7 +112,7 @@ export default function Container() {
           </div>
           {sidebarCollapsed && (
             <div className="hidden lg:flex w-full justify-center">
-              <div className="w-10 h-10 bg-linear-to-tr from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center font-bold text-white shadow-lg shadow-indigo-500/30">
+              <div className="w-10 h-10 bg-gradient-to-tr from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center font-bold text-white shadow-lg shadow-indigo-500/30">
                 R
               </div>
             </div>
@@ -142,7 +142,7 @@ export default function Container() {
               title={sidebarCollapsed ? item.label : ""}
               className={`group w-full flex text-left items-center gap-3 px-3 lg:px-4 py-3 rounded-xl transition-all  font-medium ${
                 activeTab === item.id
-                  ? "bg-linear-to-r from-indigo-600 to-indigo-500 text-white shadow-lg shadow-indigo-600/30"
+                  ? "bg-gradient-to-r from-indigo-600 to-indigo-500 text-white shadow-lg shadow-indigo-600/30"
                   : "text-gray-600 dark:text-slate-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white"
               } ${sidebarCollapsed ? "lg:justify-center lg:px-2" : ""}`}
             >
@@ -204,7 +204,7 @@ export default function Container() {
         }`}
       >
         {/* Top Header - Modern Design */}
-        <header className="sticky top-0 z-30 bg-white/95 dark:bg-linear-to-r dark:from-slate-900/95 dark:via-slate-900/90 dark:to-slate-950/95 backdrop-blur-xl border-b border-gray-200 dark:border-white/5 shadow-sm dark:shadow-lg dark:shadow-black/10">
+        <header className="sticky top-0 z-30 bg-white/95 dark:bg-gradient-to-r dark:from-slate-900/95 dark:via-slate-900/90 dark:to-slate-950/95 backdrop-blur-xl border-b border-gray-200 dark:border-white/5 shadow-sm dark:shadow-lg dark:shadow-black/10">
           <div className="flex justify-between items-center p-4 lg:px-8 lg:py-5">
             <div className="flex items-center gap-4">
               {/* Hamburger Menu Button - Only on mobile */}
@@ -216,7 +216,7 @@ export default function Container() {
               </button>
               <div>
                 <h2 className="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white tracking-tight flex items-center gap-3">
-                  <span className="hidden sm:flex w-10 h-10 bg-linear-to-tr from-indigo-600 to-purple-600 rounded-xl items-center justify-center shadow-lg shadow-indigo-500/20">
+                  <span className="hidden sm:flex w-10 h-10 bg-gradient-to-tr from-indigo-600 to-purple-600 rounded-xl items-center justify-center shadow-lg shadow-indigo-500/20">
                     {menuItems.find((i) => i.id === activeTab)?.icon}
                   </span>
                   {menuItems.find((i) => i.id === activeTab)?.label}
@@ -228,7 +228,7 @@ export default function Container() {
             </div>
             <Link
               to={"/"}
-              className="px-4 py-2.5 lg:px-5 lg:py-3 rounded-4xl bg-linear-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 flex items-center justify-center gap-2 font-bold text-white text-sm shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all"
+              className="px-4 py-2.5 lg:px-5 lg:py-3 rounded-3xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 flex items-center justify-center gap-2 font-bold text-white text-sm shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all"
             >
               <span className="hidden sm:inline">Go to</span> Home
             </Link>

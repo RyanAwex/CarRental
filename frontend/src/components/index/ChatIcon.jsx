@@ -2,8 +2,13 @@ import { MessagesSquare, Phone, X } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import React from "react";
 
-function ChatIcon() {
+function ChatIcon({ appData }) {
   const [contactOpen, setContactOpen] = React.useState(false);
+  if (!appData) return <div className="h-screen bg-slate-900 animate-pulse" />;
+
+  const { phone } = appData;
+
+  const whatsappNumber = phone.replace(/\D/g, ""); // Remove non-digit characters
 
   return (
     <>
@@ -16,7 +21,9 @@ function ChatIcon() {
       )}
 
       <div className="fixed bottom-7 right-5 flex items-center justify-center space-x-2 z-30">
-        <div
+        <a
+          href={`https://wa.me/${whatsappNumber}`}
+          target="_blank"
           className={`w-14 h-14 bg-indigo-600 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl cursor-pointer transition-all duration-300 z-30 ${
             contactOpen
               ? "opacity-100 translate-x-0"
@@ -24,9 +31,11 @@ function ChatIcon() {
           }`}
         >
           <FaWhatsapp size={26} color="white" />
-        </div>
+        </a>
 
-        <div
+        <a
+          href={`tel:${phone}`}
+          target="_blank"
           className={`w-14 h-14 bg-indigo-600 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl cursor-pointer transition-all duration-300 z-50 ${
             contactOpen
               ? "opacity-100 translate-x-0"
@@ -34,7 +43,7 @@ function ChatIcon() {
           }`}
         >
           <Phone color="white" />
-        </div>
+        </a>
 
         <div
           className=" w-14 h-14 bg-indigo-600 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl cursor-pointer transition-shadow duration-300 z-30"

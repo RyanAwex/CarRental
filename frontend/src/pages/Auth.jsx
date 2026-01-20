@@ -49,7 +49,7 @@ function Auth() {
 
         // If email confirmation is ON, they don't have a session yet.
         setSuccess(
-          "Registration successful! Please check your email for a confirmation link."
+          "Registration successful! Please check your email for a confirmation link.",
         );
         setIsSignUp(false); // Move them to sign in screen instead of home
       } else {
@@ -80,7 +80,7 @@ function Auth() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-indigo-900 via-slate-900 to-indigo-800">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-900 via-slate-900 to-indigo-800">
       <div className="bg-[#1e293b] p-8 rounded-3xl shadow-2xl border border-slate-700 w-full max-w-md">
         <div className="mb-8 text-center">
           <h1 className="text-3xl font-black text-indigo-500 tracking-tighter mb-2">
@@ -155,8 +155,8 @@ function Auth() {
                 ? "Signing up..."
                 : "Signing in..."
               : isSignUp
-              ? "Sign up"
-              : "Sign in"}
+                ? "Sign up"
+                : "Sign in"}
           </button>
         </form>
         <div className="mt-6 text-center">

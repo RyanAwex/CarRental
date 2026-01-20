@@ -139,7 +139,7 @@ function DetailedModal({
 
   return (
     <div className="fixed inset-0 bg-black/60 dark:bg-black/80 backdrop-blur-sm flex items-end sm:items-center justify-center z-50 p-0 sm:p-4">
-      <div className="bg-white dark:bg-[#1e293b] w-full sm:max-w-4xl rounded-t-2xl sm:rounded-3xl border border-gray-200 dark:border-slate-700 shadow-2xl overflow-hidden flex flex-col max-h-[95vh] sm:max-h-[90vh]">
+      <div className="bg-white dark:bg-[#1e293b] w-full sm:max-w-3xl rounded-t-2xl sm:rounded-3xl border border-gray-200 dark:border-slate-700 shadow-2xl overflow-hidden flex flex-col max-h-[95vh] sm:max-h-[90vh]">
         {/* Modal Header */}
         <div className="sticky top-0 p-4 sm:p-6 border-b border-gray-200 dark:border-slate-700 flex justify-between items-center bg-gray-50 dark:bg-[#0f172a] z-10">
           <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
@@ -483,8 +483,8 @@ function DetailedModal({
                   typeof currentCar.image_urls === "string"
                     ? currentCar.image_urls
                     : Array.isArray(currentCar.image_urls)
-                    ? currentCar.image_urls.join(", ")
-                    : ""
+                      ? currentCar.image_urls.join(", ")
+                      : ""
                 }
                 onChange={(e) =>
                   setCurrentCar({

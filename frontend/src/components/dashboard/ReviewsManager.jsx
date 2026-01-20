@@ -175,7 +175,7 @@ function ReviewsManager() {
                 <div className="flex-1">
                   {/* User Info */}
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 bg-linear-to-tr from-indigo-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">
+                    <div className="w-12 h-12 bg-gradient-to-tr from-indigo-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">
                       {review.user?.email?.charAt(0).toUpperCase() || (
                         <User size={20} />
                       )}
@@ -194,7 +194,7 @@ function ReviewsManager() {
                             day: "numeric",
                             hour: "2-digit",
                             minute: "2-digit",
-                          }
+                          },
                         )}
                       </div>
                     </div>
@@ -209,7 +209,7 @@ function ReviewsManager() {
                         </label>
                         <div className="flex gap-1">
                           {renderStars(editForm.rating, true, (rating) =>
-                            setEditForm((prev) => ({ ...prev, rating }))
+                            setEditForm((prev) => ({ ...prev, rating })),
                           )}
                         </div>
                       </div>

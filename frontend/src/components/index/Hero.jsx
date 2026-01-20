@@ -156,7 +156,7 @@ function Hero({ appData }) {
   return (
     <section
       id="home"
-      className="relative pt-32 pb-32 lg:pt-24 lg:pb-8 lg:h-screen lg:min-h-175 flex items-center justify-center"
+      className="relative pt-32 pb-32 lg:pt-24 lg:pb-8 lg:h-screen lg:min-h-175 flex items-center bg-gray-100 dark:bg-slate-950/50 justify-center"
     >
       {/* Background Effects */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-300/20 dark:bg-indigo-600/20 rounded-full blur-[100px] -z-10" />
@@ -169,9 +169,9 @@ function Hero({ appData }) {
               <span className="w-2 h-2 bg-indigo-400 rounded-full mr-2 animate-pulse"></span>
               Premium Collection {new Date().getFullYear()}
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-6 leading-tight">
               {firstPart}{" "}
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-400 to-purple-400">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">
                 {lastPart}
               </span>
             </h1>
@@ -354,7 +354,7 @@ function Hero({ appData }) {
                             >
                               {day}
                             </div>
-                          )
+                          ),
                         )}
                       </div>
 
@@ -453,11 +453,11 @@ function Hero({ appData }) {
           </div>
 
           <div className="relative group w-full max-w-md lg:max-w-none mx-auto">
-            <div className="absolute -inset-1 mx-auto bg-linear-to-r from-indigo-500 to-purple-600 rounded-3xl lg:rounded-4xl blur opacity-25 group-hover:opacity-50 transition 0 -z-10"></div>
+            <div className="absolute -inset-1 mx-auto bg-gradient-to-r from-indigo-500 to-purple-600 rounded-3xl lg:rounded-3xl blur opacity-25 group-hover:opacity-50 transition 0 -z-10"></div>
             <img
               src={imageUrl}
               alt="Hero Car"
-              className="relative w-full mx-auto rounded-3xl lg:rounded-4xl shadow-2xl border border-white/10 transform transition-transform hover:scale-[1.01] aspect-video object-center object-cover"
+              className="relative w-full mx-auto rounded-3xl lg:rounded-3xl shadow-2xl border border-white/10 transform transition-transform hover:scale-[1.01] aspect-video object-center object-cover"
             />
             {/* Floating Card */}
             <div className="absolute -bottom-4 -left-2 sm:-bottom-6 sm:-left-6 bg-white/90 border border-gray-200 dark:bg-slate-900/90 dark:border-white/10 backdrop-blur-md p-3 sm:p-4 rounded-xl shadow-xl">

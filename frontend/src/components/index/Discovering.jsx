@@ -56,7 +56,7 @@ function Discovering({ loading, error, cars }) {
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 sm:mb-12 gap-4">
             <div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2">
+              <h2 className="text-2xl sm:text-3xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">
                 Our Premium{" "}
                 <span className="text-indigo-600 dark:text-indigo-500">
                   Fleet

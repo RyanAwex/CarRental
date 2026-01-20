@@ -70,7 +70,7 @@ const SharedHeader = ({
                 </button>
               ) : (
                 <Link to="/" className="flex items-center gap-2 cursor-pointer">
-                  <div className="w-10 h-10 bg-linear-to-tr from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center font-bold text-white shadow-lg shadow-indigo-500/20">
+                  <div className="w-10 h-10 bg-gradient-to-tr from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center font-bold text-white shadow-lg shadow-indigo-500/20">
                     R
                   </div>
                   <span className="text-xl font-bold tracking-wide text-gray-900 dark:text-white">
@@ -193,7 +193,7 @@ const SharedHeader = ({
                 isAdmin() ? (
                   <Link
                     to="/dashboard"
-                    className="hidden sm:flex items-center gap-2 bg-linear-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-500 hover:to-purple-500 px-5 py-2.5 rounded-full text-sm font-bold transition-all shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40"
+                    className="hidden sm:flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-500 hover:to-purple-500 px-5 py-2.5 rounded-full text-sm font-bold transition-all shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40"
                   >
                     <Settings size={16} />
                     Admin
@@ -202,7 +202,7 @@ const SharedHeader = ({
                   !isProfilePage && (
                     <Link
                       to="/profile"
-                      className="hidden sm:flex items-center gap-2 bg-linear-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-500 hover:to-purple-500 px-5 py-2.5 rounded-full text-sm font-bold transition-all shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40"
+                      className="hidden sm:flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-500 hover:to-purple-500 px-5 py-2.5 rounded-full text-sm font-bold transition-all shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40"
                     >
                       Profile
                     </Link>
@@ -261,7 +261,7 @@ const SharedHeader = ({
                 !isProfilePage && (
                   <Link
                     to="/profile"
-                    className="block px-4 py-3 text-white bg-linear-to-r from-indigo-600 to-purple-600 rounded-xl font-bold text-center shadow-lg shadow-indigo-500/25"
+                    className="block px-4 py-3 text-white bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl font-bold text-center shadow-lg shadow-indigo-500/25"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     Profile

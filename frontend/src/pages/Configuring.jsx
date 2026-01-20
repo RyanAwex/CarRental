@@ -1092,7 +1092,7 @@ function Configuring() {
                 disabled={!canContinue}
                 className={`w-full mt-6 flex items-center justify-center gap-2 py-4 rounded-xl font-bold transition-all ${
                   canContinue
-                    ? "bg-linear-to-r from-indigo-600 to-purple-600 text-white hover:shadow-[0_0_20px_rgba(79,70,229,0.4)] cursor-pointer"
+                    ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:shadow-[0_0_20px_rgba(79,70,229,0.4)] cursor-pointer"
                     : "bg-gray-200 dark:bg-slate-700 text-gray-400 dark:text-slate-500 cursor-not-allowed"
                 }`}
               >

@@ -628,7 +628,7 @@ function Checkout() {
               className={`lg:hidden w-full py-4 rounded-xl font-bold text-base transition-all ${
                 isSubmitting
                   ? "bg-gray-200 dark:bg-slate-700 text-gray-400 dark:text-slate-500 cursor-not-allowed"
-                  : "bg-linear-to-r from-indigo-600 to-purple-600 text-white hover:shadow-[0_0_20px_rgba(79,70,229,0.4)]"
+                  : "bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:shadow-[0_0_20px_rgba(79,70,229,0.4)]"
               }`}
             >
               {isSubmitting
@@ -768,7 +768,7 @@ function Checkout() {
                 className={`hidden lg:block w-full mt-6 py-3.5 rounded-xl font-bold text-sm transition-all ${
                   isSubmitting
                     ? "bg-gray-200 dark:bg-slate-700 text-gray-400 dark:text-slate-500 cursor-not-allowed"
-                    : "bg-linear-to-r from-indigo-600 to-purple-600 text-white hover:shadow-[0_0_20px_rgba(79,70,229,0.4)]"
+                    : "bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:shadow-[0_0_20px_rgba(79,70,229,0.4)]"
                 }`}
               >
                 {isSubmitting ? "Processing..." : "Confirm Booking"}

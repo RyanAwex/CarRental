@@ -85,7 +85,7 @@ function Reviews() {
   }
 
   return (
-    <div className="py-16 bg-gray-50 dark:bg-slate-900/50">
+    <div className="py-16 bg-gray-50 dark:bg-slate-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
@@ -101,7 +101,7 @@ function Reviews() {
           {/* Left Navigation Button */}
           <button
             onClick={() => scroll("left")}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-slate-800 shadow-lg hover:shadow-xl border border-gray-200 dark:border-slate-700 rounded-full p-3 text-gray-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-200 hover:scale-105"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-slate-950/50 shadow-lg hover:shadow-xl border border-gray-200 dark:border-slate-700 rounded-full p-3 text-gray-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-200 hover:scale-105"
           >
             <ChevronLeft size={24} />
           </button>
@@ -115,10 +115,10 @@ function Reviews() {
             {reviews.map((review) => (
               <div
                 key={review.id}
-                className="shrink-0 w-80 bg-white dark:bg-slate-800 rounded-2xl shadow-lg hover:shadow-xl border border-gray-200 dark:border-slate-700 p-6"
+                className="shrink-0 w-80 bg-white dark:bg-slate-900 rounded-2xl shadow-lg hover:shadow-xl border border-gray-200 dark:border-slate-700 p-6"
               >
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 bg-linear-to-tr from-indigo-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">
+                  <div className="w-12 h-12 bg-gradient-to-tr from-indigo-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">
                     {review.user?.email?.charAt(0).toUpperCase() || (
                       <User size={20} />
                     )}
@@ -151,7 +151,7 @@ function Reviews() {
           {/* Right Navigation Button */}
           <button
             onClick={() => scroll("right")}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-slate-800 shadow-lg hover:shadow-xl border border-gray-200 dark:border-slate-700 rounded-full p-3 text-gray-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-200 hover:scale-105"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-slate-950/50 shadow-lg hover:shadow-xl border border-gray-200 dark:border-slate-700 rounded-full p-3 text-gray-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-200 hover:scale-105"
           >
             <ChevronRight size={24} />
           </button>

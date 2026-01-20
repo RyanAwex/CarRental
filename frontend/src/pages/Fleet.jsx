@@ -133,7 +133,7 @@ export default function Fleet() {
     const modelsForMake = selectedMake
       ? [
           ...new Set(
-            cars.filter((c) => c.make === selectedMake).map((c) => c.model)
+            cars.filter((c) => c.make === selectedMake).map((c) => c.model),
           ),
         ].sort()
       : [];
@@ -168,7 +168,7 @@ export default function Fleet() {
         return start <= bookingEnd && end >= bookingStart;
       });
     },
-    [startDate, endDate, bookings]
+    [startDate, endDate, bookings],
   );
 
   // Filter cars based on all criteria
@@ -353,7 +353,7 @@ export default function Fleet() {
 
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div>
-                <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-2">
+                <h1 className="text-3xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">
                   Our{" "}
                   <span className="text-indigo-600 dark:text-indigo-500">
                     Fleet

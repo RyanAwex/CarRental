@@ -12,7 +12,10 @@ const Questions = ({ appData, loading }) => {
   const lastPart = title.substring(lastSpaceIndex + 1);
 
   return (
-    <section id="faq" className="py-16 sm:py-24 bg-white dark:bg-slate-950">
+    <section
+      id="faq"
+      className="py-16 sm:py-24 bg-gray-100 dark:bg-slate-950/50"
+    >
       {loading && (
         <div className="col-span-full text-center text-indigo-600 dark:text-indigo-400 text-lg py-40">
           Loading section...
@@ -21,7 +24,7 @@ const Questions = ({ appData, loading }) => {
 
       {!loading && (
         <div className="max-w-3xl mx-auto px-4">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-8 sm:mb-12 text-center">
+          <h2 className="text-2xl sm:text-3xl md:text-3xl font-bold text-gray-900 dark:text-white mb-8 sm:mb-12 text-center">
             {firstPart}{" "}
             <span className="text-indigo-600 dark:text-indigo-500">
               {lastPart}
@@ -31,9 +34,9 @@ const Questions = ({ appData, loading }) => {
             {faqs.map((item, idx) => (
               <div
                 key={idx}
-                className={`bg-gray-50 dark:bg-white/2 rounded-xl sm:rounded-2xl overflow-hidden border transition-colors hover:cursor-pointer ${
+                className={`bg-gray-50 dark:bg-white/5 rounded-xl sm:rounded-2xl overflow-hidden border transition-colors hover:cursor-pointer ${
                   active === idx
-                    ? "border-indigo-500/30 bg-indigo-50 dark:bg-white/4"
+                    ? "border-indigo-500/30 bg-indigo-50 dark:bg-white/10"
                     : "border-gray-200 dark:border-white/5"
                 }`}
               >

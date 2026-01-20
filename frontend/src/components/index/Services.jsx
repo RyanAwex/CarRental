@@ -12,7 +12,7 @@ const Services = ({ appData }) => {
   return (
     <section
       id="services"
-      className="py-16 sm:py-24 bg-linear-to-b from-gray-100 to-gray-50 dark:from-slate-900/50 dark:to-slate-950"
+      className="py-16 sm:py-24 bg-gray-100 dark:bg-slate-950/50"
     >
       {loading && (
         <div className="col-span-full text-center text-indigo-600 dark:text-indigo-400 text-lg py-40">
@@ -22,7 +22,7 @@ const Services = ({ appData }) => {
 
       {!loading && (
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-10 sm:mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-3xl font-bold text-gray-900 dark:text-white mb-10 sm:mb-16">
             {firstPart}{" "}
             <span className="text-indigo-600 dark:text-indigo-500">
               {" "}

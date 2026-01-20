@@ -49,7 +49,7 @@ function Explanation({ appData, loading }) {
       {!loading && (
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-10 sm:mb-16">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">
               {firstPart}{" "}
               <span className="text-indigo-600 dark:text-indigo-500">
                 {" "}
@@ -63,12 +63,12 @@ function Explanation({ appData, loading }) {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 relative">
             {/* Connecting Line (Desktop) */}
-            <div className="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-linear-to-r from-transparent via-indigo-300/20 dark:via-indigo-500/20 to-transparent" />
+            <div className="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-indigo-300/20 dark:via-indigo-500/20 to-transparent" />
 
             {steps.map((step, idx) => (
               <div
                 key={idx}
-                className="relative p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-white border border-gray-100 dark:bg-white/2 dark:border-white/5 hover:bg-gray-50 dark:hover:bg-white/5 transition-all transform hover:scale-105 duration-300 group z-10 shadow-md hover:shadow-lg dark:shadow-none"
+                className="relative p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-white border border-gray-100 dark:bg-white/5 dark:border-white/5 hover:bg-gray-50 dark:hover:bg-white/10 transition-all transform hover:scale-105 duration-300 group z-10 shadow-md hover:shadow-lg dark:shadow-none"
               >
                 <div
                   className="w-12 h-12 sm:w-14 sm:h-14 bg-indigo-50 text-indigo-600 border border-indigo-200 dark:bg-slate-900 dark:border-indigo-500/30 dark:text-indigo-400 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-[0_0_15px_rgba(79,70,229,0.15)] group-hover:scale-110 group-hover:bg-indigo-600/90
