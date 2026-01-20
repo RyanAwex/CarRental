@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Index from "./pages";
+import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import Fleet from "./pages/Fleet";
 import { Route, Routes, useLocation } from "react-router-dom";
