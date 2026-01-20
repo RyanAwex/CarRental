@@ -132,12 +132,15 @@ export default function FleetManager() {
   const openModal = (car = emptyCar) => {
     setCurrentCar(car);
     setIsModalOpen(true);
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 0);
   };
 
   const filteredCars = carsWithEffectiveStatus.filter(
     (c) =>
       c.make.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      c.model.toLowerCase().includes(searchTerm.toLowerCase())
+      c.model.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   return (

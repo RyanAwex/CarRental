@@ -428,7 +428,7 @@ function Configuring() {
             <Car size={48} className="text-gray-400 dark:text-slate-600" />
           </div>
           <h2 className="text-2xl font-bold mb-4">No car selected</h2>
-          <p className="text-gray-500 dark:text-slate-400 mb-6 text-center max-w-md">
+          <p className="text-gray-500 dark:text-slate-400 mb-6 mx-5 text-center max-w-md">
             Please select a car from our fleet to configure your trip.
           </p>
           <Link

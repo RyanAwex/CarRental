@@ -232,7 +232,7 @@ const SharedHeader = ({
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="sm:hidden absolute top-full left-0 right-0 bg-white/98 dark:bg-slate-950/98 backdrop-blur-xl border-b border-gray-200 dark:border-white/10 p-4 space-y-2 z-40">
+          <div className="sm:hidden absolute top-full left-0 right-0 bg-white dark:bg-slate-950 border-b border-gray-200 dark:border-white/10 p-4 space-y-2 z-40">
             {isHomePage && (
               <>
                 {["Home", "Fleet", "Services", "FAQ"].map((item) => (

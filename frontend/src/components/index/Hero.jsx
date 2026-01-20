@@ -192,8 +192,10 @@ function Hero({ appData }) {
                     PICKUP LOCATION
                   </label>
                   <button
-                    onClick={() => setIsLocationOpen(!isLocationOpen)}
-                    className="w-full h-11 rounded-xl bg-gray-50 border border-gray-300 dark:bg-[#0f1530] dark:border-white/10 px-3 text-sm text-left outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all cursor-pointer flex items-center justify-between"
+                    onClick={() => {
+                      if (!isDatePickerOpen) setIsLocationOpen(!isLocationOpen);
+                    }}
+                    className={`w-full h-11 rounded-xl bg-gray-50 border border-gray-300 dark:bg-[#0f1530] dark:border-white/10 px-3 text-sm text-left outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all flex items-center justify-between ${isDatePickerOpen ? "opacity-50 pointer-events-none" : "cursor-pointer"}`}
                   >
                     <span
                       className={`overflow-hidden truncate mr-2 ${
@@ -228,7 +230,7 @@ function Hero({ appData }) {
 
                   {/* Location Dropdown */}
                   {isLocationOpen && (
-                    <div className="fixed sm:absolute top-1/2 sm:top-full left-1/2 sm:left-0 -translate-x-1/2 -translate-y-1/2 sm:translate-x-0 sm:translate-y-0 mt-0 sm:mt-2 bg-white border border-gray-200 dark:bg-[#0f1530] dark:border-white/10 rounded-xl shadow-2xl z-100 overflow-y-auto max-h-80 w-[85vw] sm:w-72 md:w-80 animate-in fade-in slide-in-from-top-2 ">
+                    <div className="fixed sm:absolute top-1/2 sm:top-full left-1/2 sm:left-0 -translate-x-1/2 -translate-y-1/2 sm:translate-x-0 sm:translate-y-0 mt-0 sm:mt-2 bg-white border border-gray-200 dark:bg-[#0f1530] dark:border-white/10 rounded-xl shadow-2xl z-[9999] overflow-y-auto max-h-80 w-[85vw] sm:w-72 md:w-80 animate-in fade-in slide-in-from-top-2 ">
                       {PICKUP_LOCATIONS.map((location) => (
                         <button
                           key={location.id}
@@ -268,8 +270,11 @@ function Hero({ appData }) {
                     RENTAL DATES
                   </label>
                   <button
-                    onClick={() => setIsDatePickerOpen(!isDatePickerOpen)}
-                    className="w-full h-11 rounded-xl bg-gray-50 border border-gray-300 dark:bg-[#0f1530] dark:border-white/10 px-3 text-sm text-left outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all cursor-pointer flex items-center justify-between"
+                    onClick={() => {
+                      if (!isLocationOpen)
+                        setIsDatePickerOpen(!isDatePickerOpen);
+                    }}
+                    className={`w-full h-11 rounded-xl bg-gray-50 border border-gray-300 dark:bg-[#0f1530] dark:border-white/10 px-3 text-sm text-left outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 transition-all flex items-center justify-between ${isLocationOpen ? "opacity-50 pointer-events-none" : "cursor-pointer"}`}
                   >
                     <span
                       className={`overflow-hidden truncate mr-2 ${
@@ -324,7 +329,7 @@ function Hero({ appData }) {
 
                   {/* Date Picker Dropdown */}
                   {isDatePickerOpen && (
-                    <div className="fixed sm:absolute top-1/2 sm:top-full left-1/2 sm:left-0 -translate-x-1/2 -translate-y-1/2 sm:translate-x-0 sm:translate-y-0 mt-0 sm:mt-2 bg-white border border-gray-200 dark:bg-[#0f1530] dark:border-white/10 rounded-xl shadow-2xl z-100 p-4 min-w-70 animate-in fade-in slide-in-from-top-2 ">
+                    <div className="fixed sm:absolute top-1/2 sm:top-full left-1/2 sm:left-0 -translate-x-1/2 -translate-y-1/2 sm:translate-x-0 sm:translate-y-0 mt-0 sm:mt-2 bg-white border border-gray-200 dark:bg-[#0f1530] dark:border-white/10 rounded-xl shadow-2xl z-[9999] overflow-y-auto max-h-80 w-[85vw] sm:w-72 md:w-80 p-4 animate-in fade-in slide-in-from-top-2 ">
                       {/* Month Navigation */}
                       <div className="flex items-center justify-between mb-4">
                         <button
@@ -492,7 +497,7 @@ function Hero({ appData }) {
         </div>
       )}
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-slate-400">
+      <div className="absolute bottom-8 w-full flex justify-center animate-bounce text-slate-400">
         <ChevronDown className="mx-auto" />
       </div>
     </section>

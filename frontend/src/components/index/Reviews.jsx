@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { ChevronLeft, ChevronRight, Star, User } from "lucide-react";
+import { Star, User } from "lucide-react";
 import { useReviewsStore } from "../../store/reviewsStore";
 
 function Reviews() {
@@ -10,19 +10,6 @@ function Reviews() {
   useEffect(() => {
     fetchReviews();
   }, [fetchReviews]);
-
-  const scroll = (direction) => {
-    if (scrollRef.current) {
-      const scrollAmount = 320; // Width of one review card + gap
-      const newScrollLeft =
-        scrollRef.current.scrollLeft +
-        (direction === "left" ? -scrollAmount : scrollAmount);
-      scrollRef.current.scrollTo({
-        left: newScrollLeft,
-        behavior: "smooth",
-      });
-    }
-  };
 
   const renderStars = (rating) => {
     return Array.from({ length: 5 }, (_, i) => (
@@ -97,25 +84,16 @@ function Reviews() {
           </p>
         </div>
 
-        <div className="relative">
-          {/* Left Navigation Button */}
-          <button
-            onClick={() => scroll("left")}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-slate-950/50 shadow-lg hover:shadow-xl border border-gray-200 dark:border-slate-700 rounded-full p-3 text-gray-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-200 hover:scale-105"
-          >
-            <ChevronLeft size={24} />
-          </button>
-
-          {/* Reviews Container */}
+        <div className="w-full mx-2 md:mx-8">
           <div
             ref={scrollRef}
-            className="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth px-12"
+            className="flex gap-6 pb-5 overflow-x-auto scroll-smooth px-2 md:px-4 scrollbar-hide"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
             {reviews.map((review) => (
               <div
                 key={review.id}
-                className="shrink-0 w-80 bg-white dark:bg-slate-900 rounded-2xl shadow-lg hover:shadow-xl border border-gray-200 dark:border-slate-700 p-6"
+                className="shrink-0 w-80 bg-white dark:bg-slate-900 rounded-2xl shadow-md hover:shadow-lg border border-gray-200 dark:border-slate-700 p-6"
               >
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-12 h-12 bg-gradient-to-tr from-indigo-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">
@@ -147,22 +125,7 @@ function Reviews() {
               </div>
             ))}
           </div>
-
-          {/* Right Navigation Button */}
-          <button
-            onClick={() => scroll("right")}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-slate-950/50 shadow-lg hover:shadow-xl border border-gray-200 dark:border-slate-700 rounded-full p-3 text-gray-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-200 hover:scale-105"
-          >
-            <ChevronRight size={24} />
-          </button>
         </div>
-
-        {/* View All Reviews Button */}
-        {/* <div className="text-center mt-8">
-          <button className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl transition-colors duration-200">
-            View All Reviews
-          </button>
-        </div> */}
       </div>
     </div>
   );
