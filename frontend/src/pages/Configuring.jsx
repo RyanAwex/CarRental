@@ -52,6 +52,138 @@ const monthNames = [
 ];
 
 function Configuring() {
+  // Language detection
+  const lang = useMemo(() => localStorage.getItem("lang") || "eg", []);
+
+  // Texts for multi-language
+  const TEXTS = {
+    eg: {
+      noCarTitle: "No car selected",
+      noCarDesc: "Please select a car from our fleet to configure your trip.",
+      browseCars: "Browse Cars",
+      configureRental: "Configure your rental",
+      pickupLocation: "Pickup Location",
+      selectPickup: "Select pickup location",
+      rentalDates: "Rental Dates",
+      selectDates: "Select rental dates",
+      selectEndDate: "Select end date",
+      selectStartDate: "Select start date",
+      rentalDuration: "Rental duration",
+      day: "day",
+      days: "days",
+      paymentMethod: "Payment Method",
+      insuranceAddons: "Insurance Add-ons",
+      optional: "(Optional)",
+      noInsurance: "No Insurance",
+      orderSummary: "Order Summary",
+      pickupLocationSummary: "Pickup Location",
+      datesSummary: "Dates",
+      dailyRate: "Daily Rate",
+      rentalDays: "Rental Days",
+      payment: "Payment",
+      insurance: "Insurance",
+      freeDaysApplied: "Free Day Applied!",
+      freeDaysAppliedPlural: "Free Days Applied!",
+      youSave: "You Save",
+      returnDate: "Return Date",
+      total: "Total",
+      continueToCheckout: "Continue to Checkout",
+      datesUnavailable: "Dates Unavailable",
+      carNotAvailable: "Car not available for selected dates",
+      alreadyBooked: "This car is already booked from",
+      to: "to",
+      selectDifferentDates: "Please select different dates.",
+      existingReservations: "Existing reservations for this vehicle:",
+      booked: "Booked",
+      remove: "Remove",
+      madDay: "MAD/day",
+    },
+    ar: {
+      noCarTitle: "لم يتم اختيار سيارة",
+      noCarDesc: "يرجى اختيار سيارة من الأسطول لإعداد رحلتك.",
+      browseCars: "تصفح السيارات",
+      configureRental: "إعداد الحجز",
+      pickupLocation: "موقع الاستلام",
+      selectPickup: "اختر موقع الاستلام",
+      rentalDates: "تواريخ الإيجار",
+      selectDates: "اختر تواريخ الإيجار",
+      selectEndDate: "اختر تاريخ الانتهاء",
+      selectStartDate: "اختر تاريخ البداية",
+      rentalDuration: "مدة الإيجار",
+      day: "يوم",
+      days: "أيام",
+      paymentMethod: "طريقة الدفع",
+      insuranceAddons: "إضافات التأمين",
+      optional: "(اختياري)",
+      noInsurance: "بدون تأمين",
+      orderSummary: "ملخص الطلب",
+      pickupLocationSummary: "موقع الاستلام",
+      datesSummary: "التواريخ",
+      dailyRate: "سعر اليوم",
+      rentalDays: "أيام الإيجار",
+      payment: "الدفع",
+      insurance: "التأمين",
+      freeDaysApplied: "تم تطبيق يوم مجاني!",
+      freeDaysAppliedPlural: "تم تطبيق أيام مجانية!",
+      youSave: "وفرت",
+      returnDate: "تاريخ الإرجاع",
+      total: "الإجمالي",
+      continueToCheckout: "المتابعة للدفع",
+      datesUnavailable: "التواريخ غير متاحة",
+      carNotAvailable: "السيارة غير متاحة للتواريخ المحددة",
+      alreadyBooked: "هذه السيارة محجوزة من",
+      to: "إلى",
+      selectDifferentDates: "يرجى اختيار تواريخ أخرى.",
+      existingReservations: "الحجوزات الحالية لهذه السيارة:",
+      booked: "محجوز",
+      remove: "حذف",
+      madDay: "درهم/يوم",
+    },
+    fr: {
+      noCarTitle: "Aucune voiture sélectionnée",
+      noCarDesc:
+        "Veuillez sélectionner une voiture de notre flotte pour configurer votre voyage.",
+      browseCars: "Voir les voitures",
+      configureRental: "Configurer votre location",
+      pickupLocation: "Lieu de prise en charge",
+      selectPickup: "Sélectionner le lieu de prise en charge",
+      rentalDates: "Dates de location",
+      selectDates: "Sélectionner les dates de location",
+      selectEndDate: "Sélectionner la date de fin",
+      selectStartDate: "Sélectionner la date de début",
+      rentalDuration: "Durée de location",
+      day: "jour",
+      days: "jours",
+      paymentMethod: "Mode de paiement",
+      insuranceAddons: "Options d'assurance",
+      optional: "(Optionnel)",
+      noInsurance: "Sans assurance",
+      orderSummary: "Résumé de la commande",
+      pickupLocationSummary: "Lieu de prise en charge",
+      datesSummary: "Dates",
+      dailyRate: "Tarif journalier",
+      rentalDays: "Jours de location",
+      payment: "Paiement",
+      insurance: "Assurance",
+      freeDaysApplied: "Jour gratuit appliqué!",
+      freeDaysAppliedPlural: "Jours gratuits appliqués!",
+      youSave: "Vous économisez",
+      returnDate: "Date de retour",
+      total: "Total",
+      continueToCheckout: "Continuer vers le paiement",
+      datesUnavailable: "Dates indisponibles",
+      carNotAvailable: "Voiture non disponible pour les dates sélectionnées",
+      alreadyBooked: "Cette voiture est déjà réservée du",
+      to: "au",
+      selectDifferentDates: "Veuillez sélectionner d'autres dates.",
+      existingReservations: "Réservations existantes pour ce véhicule :",
+      booked: "Réservé",
+      remove: "Supprimer",
+      madDay: "MAD/jour",
+    },
+  };
+  const t = TEXTS[lang];
+
   const {
     cart,
     data: cartData,
@@ -427,15 +559,15 @@ function Configuring() {
           <div className="p-6 rounded-full bg-gray-100 dark:bg-slate-800 mb-6">
             <Car size={48} className="text-gray-400 dark:text-slate-600" />
           </div>
-          <h2 className="text-2xl font-bold mb-4">No car selected</h2>
+          <h2 className="text-2xl font-bold mb-4">{t.noCarTitle}</h2>
           <p className="text-gray-500 dark:text-slate-400 mb-6 mx-5 text-center max-w-md">
-            Please select a car from our fleet to configure your trip.
+            {t.noCarDesc}
           </p>
           <Link
             to="/"
             className="bg-indigo-600 hover:bg-indigo-700 px-6 py-3 rounded-full text-sm font-bold transition-all text-white"
           >
-            Browse Cars
+            {t.browseCars}
           </Link>
         </div>
       </>
@@ -446,7 +578,7 @@ function Configuring() {
     <div className="w-full min-h-screen bg-white dark:bg-slate-950">
       <SharedHeader
         title={`${cart.make} ${cart.model}`}
-        subtitle="Configure your rental"
+        subtitle={t.configureRental}
         showBackButton
         backTo="/"
         showNav={false}
@@ -473,7 +605,7 @@ function Configuring() {
               <div className="text-indigo-600 dark:text-indigo-400 text-lg font-bold mt-2">
                 {dailyPrice}{" "}
                 <span className="text-gray-400 dark:text-slate-500 text-sm font-normal">
-                  MAD/day
+                  {t.madDay}
                 </span>
               </div>
             </div>
@@ -482,7 +614,7 @@ function Configuring() {
               className="flex items-center gap-2 bg-red-600/20 hover:bg-red-600/30 text-red-400 px-4 py-2.5 rounded-xl font-medium transition-all w-fit"
             >
               <Trash2 size={16} />
-              Remove
+              {t.remove}
             </button>
           </div>
         </div>
@@ -492,19 +624,17 @@ function Configuring() {
           <div className="w-full p-4 bg-red-500/10 border border-red-500/30 rounded-2xl flex items-start gap-3">
             <AlertCircle className="text-red-400 shrink-0 mt-0.5" size={20} />
             <div>
-              <p className="text-red-400 font-bold">
-                Car not available for selected dates
-              </p>
+              <p className="text-red-400 font-bold">{t.carNotAvailable}</p>
               <p className="text-red-300/80 text-sm mt-1">
-                This car is already booked from{" "}
+                {t.alreadyBooked}{" "}
                 <span className="font-semibold">
                   {formatFullDate(dateConflict.start)}
                 </span>{" "}
-                to{" "}
+                {t.to}{" "}
                 <span className="font-semibold">
                   {formatFullDate(dateConflict.end)}
                 </span>
-                . Please select different dates.
+                . {t.selectDifferentDates}
               </p>
             </div>
           </div>
@@ -515,7 +645,7 @@ function Configuring() {
           <div className="w-full p-4 bg-amber-500/10 border border-amber-500/30 rounded-2xl">
             <p className="text-amber-400 font-medium text-sm mb-2 flex items-center gap-2">
               <Calendar size={16} />
-              Existing reservations for this vehicle:
+              {t.existingReservations}
             </p>
             <div className="flex flex-wrap gap-2">
               {bookings.map((booking, idx) => (
@@ -523,7 +653,7 @@ function Configuring() {
                   key={idx}
                   className="px-3 py-1.5 bg-amber-500/20 text-black/50 dark:text-amber-400 rounded-lg text-xs font-medium"
                 >
-                  {formatFullDate(toSafeDate(booking.start_date))} to{" "}
+                  {formatFullDate(toSafeDate(booking.start_date))} {t.to}{" "}
                   {formatFullDate(toSafeDate(booking.end_date))}
                 </span>
               ))}
@@ -542,7 +672,7 @@ function Configuring() {
                   size={18}
                   className="text-indigo-600 dark:text-indigo-400"
                 />
-                Pickup Location
+                {t.pickupLocation}
               </h3>
               <div className="relative" ref={locationRef}>
                 <button
@@ -567,7 +697,7 @@ function Configuring() {
                         <span>{selectedLocation.name}</span>
                       </span>
                     ) : (
-                      "Select pickup location"
+                      t.selectPickup
                     )}
                   </span>
                   <ChevronDown
@@ -628,7 +758,7 @@ function Configuring() {
                   size={18}
                   className="text-indigo-600 dark:text-indigo-400"
                 />
-                Rental Dates
+                {t.rentalDates}
               </h3>
 
               <div className="relative" ref={datePickerRef}>
@@ -650,11 +780,11 @@ function Configuring() {
                           →
                         </span>
                         <span>
-                          {endDate ? formatDate(endDate) : "Select end date"}
+                          {endDate ? formatDate(endDate) : t.selectEndDate}
                         </span>
                       </span>
                     ) : (
-                      "Select rental dates"
+                      t.selectDates
                     )}
                   </span>
                   <div className="flex items-center gap-2">
@@ -823,12 +953,12 @@ function Configuring() {
                       <div className="mt-4 pt-3 border-t border-gray-200 dark:border-white/10 flex items-center justify-between text-xs">
                         <span className="text-gray-500 dark:text-slate-400">
                           {selectingEnd && startDate
-                            ? "Select end date"
-                            : "Select start date"}
+                            ? t.selectEndDate
+                            : t.selectStartDate}
                         </span>
                         <div className="flex items-center gap-2 text-red-400/70">
                           <span className="w-2 h-2 bg-red-200 dark:bg-red-500/30 rounded" />
-                          <span>Booked</span>
+                          <span>{t.booked}</span>
                         </div>
                       </div>
                     </div>,
@@ -839,10 +969,10 @@ function Configuring() {
               {rentalDays > 0 && !dateConflict && (
                 <div className="mt-4 p-3 bg-indigo-100 dark:bg-indigo-600/20 rounded-xl border border-indigo-200 dark:border-indigo-500/30 flex items-center justify-between">
                   <span className="text-indigo-600 dark:text-indigo-300 text-sm">
-                    Rental duration
+                    {t.rentalDuration}
                   </span>
                   <span className="font-bold text-gray-900 dark:text-white">
-                    {rentalDays} {rentalDays === 1 ? "day" : "days"}
+                    {rentalDays} {rentalDays === 1 ? t.day : t.days}
                   </span>
                 </div>
               )}
@@ -855,7 +985,7 @@ function Configuring() {
                   size={18}
                   className="text-indigo-600 dark:text-indigo-400"
                 />
-                Payment Method
+                {t.paymentMethod}
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {paymentMethods.map((method) => {
@@ -888,9 +1018,9 @@ function Configuring() {
                     size={18}
                     className="text-indigo-600 dark:text-indigo-400"
                   />
-                  Insurance Add-ons
+                  {t.insuranceAddons}{" "}
                   <span className="text-xs text-gray-400 dark:text-slate-500 font-normal ml-1">
-                    (Optional)
+                    {t.optional}
                   </span>
                 </h3>
                 <div className="space-y-3">
@@ -915,7 +1045,9 @@ function Configuring() {
                           <Check size={12} className="text-white" />
                         )}
                       </div>
-                      <span className="font-medium text-sm">No Insurance</span>
+                      <span className="font-medium text-sm">
+                        {t.noInsurance}
+                      </span>
                     </div>
                     <span className="text-sm font-bold">0 MAD</span>
                   </button>
@@ -959,7 +1091,7 @@ function Configuring() {
                           {insurance.price_per_day} MAD
                         </span>
                         <span className="text-xs text-gray-400 dark:text-slate-500 block">
-                          /day
+                          /{t.day}
                         </span>
                       </div>
                     </button>
@@ -970,7 +1102,8 @@ function Configuring() {
                 {selectedInsurance && rentalDays > 0 && (
                   <div className="mt-4 p-3 bg-indigo-100 dark:bg-indigo-600/10 rounded-xl border border-indigo-200 dark:border-indigo-500/30 flex items-center justify-between">
                     <span className="text-indigo-600 dark:text-indigo-300 text-sm">
-                      {selectedInsurance.name} × {rentalDays} days
+                      {selectedInsurance.name} × {rentalDays}{" "}
+                      {rentalDays === 1 ? t.day : t.days}
                     </span>
                     <span className="font-bold text-indigo-600 dark:text-indigo-400">
                       {insuranceCost} MAD
@@ -985,12 +1118,12 @@ function Configuring() {
           <div className="lg:col-span-2">
             <div className="p-5 bg-gray-50 dark:bg-slate-800/50 backdrop-blur rounded-2xl border border-gray-200 dark:border-white/10 sticky top-24 shadow-md dark:shadow-none">
               <h3 className="text-base font-bold text-gray-900 dark:text-white mb-4">
-                Order Summary
+                {t.orderSummary}
               </h3>
               <div className="space-y-3">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-500 dark:text-slate-400">
-                    Pickup Location
+                    {t.pickupLocationSummary}
                   </span>
                   <span className="text-gray-900 dark:text-white font-medium">
                     {selectedLocation
@@ -1000,7 +1133,7 @@ function Configuring() {
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-500 dark:text-slate-400">
-                    Dates
+                    {t.datesSummary}
                   </span>
                   <span className="text-gray-900 dark:text-white font-medium">
                     {startDate && endDate
@@ -1010,7 +1143,7 @@ function Configuring() {
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-500 dark:text-slate-400">
-                    Daily Rate
+                    {t.dailyRate}
                   </span>
                   <span className="text-gray-900 dark:text-white font-medium">
                     {dailyPrice} MAD
@@ -1018,7 +1151,7 @@ function Configuring() {
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-500 dark:text-slate-400">
-                    Rental Days
+                    {t.rentalDays}
                   </span>
                   <span className="text-gray-900 dark:text-white font-medium">
                     {rentalDays || "-"}
@@ -1026,7 +1159,7 @@ function Configuring() {
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-500 dark:text-slate-400">
-                    Payment
+                    {t.payment}
                   </span>
                   <span className="text-gray-900 dark:text-white font-medium capitalize">
                     {paymentMethod}
@@ -1037,7 +1170,7 @@ function Configuring() {
                 {selectedInsurance && (
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-500 dark:text-slate-400">
-                      Insurance
+                      {t.insurance}
                     </span>
                     <span className="text-indigo-600 dark:text-indigo-400 font-medium">
                       {selectedInsurance.name} (+{insuranceCost} MAD)
@@ -1051,18 +1184,23 @@ function Configuring() {
                     <div className="flex items-center gap-2 text-green-400 font-medium text-sm mb-1">
                       <Gift size={16} />
                       <span>
-                        {freeDays} Free Day{freeDays > 1 ? "s" : ""} Applied!
+                        {freeDays}{" "}
+                        {freeDays > 1
+                          ? t.freeDaysAppliedPlural
+                          : t.freeDaysApplied}
                       </span>
                     </div>
                     <div className="flex justify-between text-sm mb-1">
-                      <span className="text-green-300/70">You Save</span>
+                      <span className="text-green-300/70">{t.youSave}</span>
                       <span className="text-green-400 font-medium">
                         {discountAmount} MAD
                       </span>
                     </div>
                     {returnDate && (
                       <div className="flex justify-between text-sm">
-                        <span className="text-green-300/70">Return Date</span>
+                        <span className="text-green-300/70">
+                          {t.returnDate}
+                        </span>
                         <span className="text-green-400 font-medium">
                           {returnDate.toLocaleDateString("en-GB")}
                         </span>
@@ -1073,7 +1211,9 @@ function Configuring() {
 
                 <hr className="border-gray-200 dark:border-white/10" />
                 <div className="flex justify-between text-lg font-bold pt-2">
-                  <span className="text-gray-900 dark:text-white">Total</span>
+                  <span className="text-gray-900 dark:text-white">
+                    {t.total}
+                  </span>
                   <span
                     className={
                       dateConflict
@@ -1096,7 +1236,7 @@ function Configuring() {
                     : "bg-gray-200 dark:bg-slate-700 text-gray-400 dark:text-slate-500 cursor-not-allowed"
                 }`}
               >
-                {dateConflict ? "Dates Unavailable" : "Continue to Checkout"}
+                {dateConflict ? t.datesUnavailable : t.continueToCheckout}
                 <ChevronRight size={18} />
               </button>
             </div>

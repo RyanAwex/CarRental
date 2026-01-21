@@ -9,10 +9,12 @@ import {
   Settings,
   ChevronLeft,
   ArrowLeft,
+  Globe,
 } from "lucide-react";
 import { useAuthStore } from "../../store/authStore";
 import { useCartStore } from "../../store/carStore";
 import ThemeToggle from "./ThemeToggle";
+import LanguageButton from "./LanguageButton";
 
 const SharedHeader = ({
   title,
@@ -184,6 +186,8 @@ const SharedHeader = ({
                   )}
                 </Link>
               )}
+
+              <LanguageButton />
 
               {/* Theme Toggle */}
               <ThemeToggle />

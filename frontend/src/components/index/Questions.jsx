@@ -7,6 +7,10 @@ const Questions = ({ appData, loading }) => {
 
   const { title, faqs } = appData;
 
+  // Get current language
+  const currentLanguage = localStorage.getItem("lang") || "eg";
+  const isArabic = currentLanguage === "ar";
+
   const lastSpaceIndex = title.lastIndexOf(" ");
   const firstPart = title.substring(0, lastSpaceIndex);
   const lastPart = title.substring(lastSpaceIndex + 1);
@@ -24,11 +28,25 @@ const Questions = ({ appData, loading }) => {
 
       {!loading && (
         <div className="max-w-3xl mx-auto px-4">
-          <h2 className="text-2xl sm:text-3xl md:text-3xl font-bold text-gray-900 dark:text-white mb-8 sm:mb-12 text-center">
-            {firstPart}{" "}
-            <span className="text-indigo-600 dark:text-indigo-500">
-              {lastPart}
-            </span>
+          <h2
+            className={`text-2xl sm:text-3xl md:text-3xl font-bold text-gray-900 dark:text-white mb-8 sm:mb-12 text-center ${isArabic ? "text-right" : ""}`}
+            dir={isArabic ? "rtl" : "ltr"}
+          >
+            {isArabic ? (
+              <>
+                {firstPart}{" "}
+                <span className="text-indigo-600 dark:text-indigo-500">
+                  {lastPart}؟
+                </span>
+              </>
+            ) : (
+              <>
+                {firstPart}{" "}
+                <span className="text-indigo-600 dark:text-indigo-500">
+                  {lastPart}
+                </span>
+              </>
+            )}
           </h2>
           <div className="space-y-3 sm:space-y-4">
             {faqs.map((item, idx) => (
@@ -42,7 +60,7 @@ const Questions = ({ appData, loading }) => {
               >
                 <button
                   onClick={() => setActive(active === idx ? null : idx)}
-                  className="w-full flex justify-between items-center p-4 sm:p-6 text-left text-gray-900 dark:text-white text-sm sm:text-base font-medium focus:outline-none gap-3"
+                  className={`w-full flex justify-between items-center p-4 sm:p-6 text-gray-900 dark:text-white text-sm sm:text-base font-medium focus:outline-none gap-3 ${isArabic ? "flex-row-reverse text-right" : "text-left"}`}
                 >
                   <span>{item.question}</span>
                   {active === idx ? (
@@ -58,7 +76,7 @@ const Questions = ({ appData, loading }) => {
                   )}
                 </button>
                 <div
-                  className={`px-4 sm:px-6 text-gray-500 dark:text-slate-400 text-xs sm:text-sm leading-relaxed overflow-hidden transition-all  ${
+                  className={`px-4 sm:px-6 text-gray-500 dark:text-slate-400 text-xs sm:text-sm leading-relaxed overflow-hidden transition-all ${isArabic ? "text-right" : ""} ${
                     active === idx
                       ? "max-h-40 pb-4 sm:pb-6 opacity-100"
                       : "max-h-0 opacity-0"

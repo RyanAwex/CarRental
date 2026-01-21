@@ -2,24 +2,34 @@ import React, { useState, useEffect } from "react";
 import { Save, Gem, Plus, Trash2 } from "lucide-react";
 import supabase from "../../config/supabase-client";
 
-export default function ExclusiveServicesEditor() {
-  const [content, setContent] = useState({ title: "", services: [] });
-  const [loading, setLoading] = useState(true);
+const LANGUAGES = [
+  { code: "eg", label: "EN" },
+  { code: "ar", label: "AR" },
+  { code: "fr", label: "FR" },
+];
 
-  const fetchContent = async () => {
-    const { data } = await supabase
-      .from("site_content")
-      .select("content")
-      .eq("section_key", "exclusive_services")
-      .single();
-    if (data) setContent(data.content);
-    setLoading(false);
-  };
+export default function ExclusiveServicesEditor() {
+  const [content, setContent] = useState({
+    ar: { title: "", services: [] },
+    eg: { title: "", services: [] },
+    fr: { title: "", services: [] },
+  });
+  const [loading, setLoading] = useState(true);
+  const [language, setLanguage] = useState(
+    () => localStorage.getItem("lang") || "eg",
+  );
+
   useEffect(() => {
-    const fetchData = async () => {
-      await fetchContent();
+    const fetchContent = async () => {
+      const { data } = await supabase
+        .from("site_content")
+        .select("content")
+        .eq("section_key", "exclusive_services")
+        .single();
+      if (data && data.content) setContent(data.content);
+      setLoading(false);
     };
-    fetchData();
+    fetchContent();
   }, []);
 
   const handleSave = async () => {
@@ -32,23 +42,43 @@ export default function ExclusiveServicesEditor() {
   };
 
   const updateService = (index, field, value) => {
-    const newServices = [...content.services];
-    newServices[index][field] = value;
-    setContent({ ...content, services: newServices });
+    setContent((prev) => ({
+      ...prev,
+      [language]: {
+        ...prev[language],
+        services: (prev[language].services || []).map((srv, i) =>
+          i === index ? { ...srv, [field]: value } : srv,
+        ),
+      },
+    }));
   };
 
   const addService = () => {
-    setContent({
-      ...content,
-      services: [...content.services, { title: "New Service", desc: "" }],
-    });
+    setContent((prev) => ({
+      ...prev,
+      [language]: {
+        ...prev[language],
+        services: [
+          ...(prev[language].services || []),
+          { title: "New Service", desc: "" },
+        ],
+      },
+    }));
   };
 
   const removeService = (index) => {
-    setContent({
-      ...content,
-      services: content.services.filter((_, i) => i !== index),
-    });
+    setContent((prev) => ({
+      ...prev,
+      [language]: {
+        ...prev[language],
+        services: (prev[language].services || []).filter((_, i) => i !== index),
+      },
+    }));
+  };
+
+  const handleLangChange = (lang) => {
+    setLanguage(lang);
+    localStorage.setItem("lang", lang);
   };
 
   if (loading)
@@ -62,19 +92,41 @@ export default function ExclusiveServicesEditor() {
         <Gem /> Edit "Exclusive Services"
       </h2>
 
+      {/* Language Toggle */}
+      <div className="flex gap-2 mb-4">
+        {LANGUAGES.map((lang) => (
+          <button
+            key={lang.code}
+            onClick={() => handleLangChange(lang.code)}
+            className={`px-3 py-1 rounded font-bold text-xs border transition-all focus:outline-none focus:ring-2 focus:ring-indigo-400/50 ${
+              language === lang.code
+                ? "bg-indigo-600 text-white border-indigo-600"
+                : "bg-gray-200 dark:bg-slate-800 text-gray-700 dark:text-slate-200 border-gray-300 dark:border-slate-600"
+            }`}
+          >
+            {lang.label}
+          </button>
+        ))}
+      </div>
+
       <div className="mb-8">
         <label className="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase">
           Section Title
         </label>
         <input
           className="w-full bg-gray-50 dark:bg-slate-800 border border-gray-300 dark:border-slate-600 rounded-lg p-3 outline-none focus:border-indigo-500 transition-colors text-gray-900 dark:text-white"
-          value={content.title}
-          onChange={(e) => setContent({ ...content, title: e.target.value })}
+          value={content[language]?.title || ""}
+          onChange={(e) =>
+            setContent((prev) => ({
+              ...prev,
+              [language]: { ...prev[language], title: e.target.value },
+            }))
+          }
         />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {content.services.map((service, index) => (
+        {(content[language]?.services || []).map((service, index) => (
           <div
             key={index}
             className="bg-gray-50 dark:bg-slate-800/50 p-5 rounded-2xl border border-gray-200 dark:border-slate-600 relative group hover:border-indigo-500/30 transition-colors"

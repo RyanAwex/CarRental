@@ -134,12 +134,34 @@ export const useDataStore = create((set, get) => ({
     ]);
   },
 
-  // Get content by section key
+  // Get content by section key and language
   getSection: (sectionKey) => {
     const content = get().siteContent.find(
-      (item) => item.section_key === sectionKey
+      (item) => item.section_key === sectionKey,
     );
-    return content?.content || null;
+    if (!content?.content) return null;
+
+    // Footer is a special case (flat, not per-language)
+    if (sectionKey === "footer") {
+      const lang = localStorage.getItem("lang") || "eg";
+      let description =
+        content.content[`${lang}_description`] ||
+        content.content["eg_description"] ||
+        "";
+      return { ...content.content, description };
+    }
+
+    // For all other sections, return the language-specific object, but always include shared image fields
+    const lang = localStorage.getItem("lang") || "eg";
+    const langObj = content.content[lang] || content.content["eg"] || {};
+    // Find all shared fields (e.g., imageUrl, etc.)
+    const sharedFields = {};
+    Object.keys(content.content).forEach((key) => {
+      if (!["ar", "eg", "fr"].includes(key)) {
+        sharedFields[key] = content.content[key];
+      }
+    });
+    return { ...langObj, ...sharedFields };
   },
 
   // Refresh cars (force refetch)

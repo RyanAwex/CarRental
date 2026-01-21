@@ -3,13 +3,22 @@ import React, { useState, useEffect } from "react";
 import { Save, List, Plus, Trash2, LayoutGrid } from "lucide-react";
 import supabase from "../../config/supabase-client";
 
+const LANGUAGES = [
+  { code: "eg", label: "EN" },
+  { code: "ar", label: "AR" },
+  { code: "fr", label: "FR" },
+];
+
 export default function HowItWorksEditor() {
   const [content, setContent] = useState({
-    title: "",
-    subtitle: "",
-    steps: [],
+    ar: { title: "", subtitle: "", steps: [] },
+    eg: { title: "", subtitle: "", steps: [] },
+    fr: { title: "", subtitle: "", steps: [] },
   });
   const [loading, setLoading] = useState(true);
+  const [language, setLanguage] = useState(
+    () => localStorage.getItem("lang") || "eg",
+  );
 
   useEffect(() => {
     const fetchContent = async () => {
@@ -18,7 +27,7 @@ export default function HowItWorksEditor() {
         .select("content")
         .eq("section_key", "how_it_works")
         .single();
-      if (data) setContent(data.content);
+      if (data && data.content) setContent(data.content);
       setLoading(false);
     };
     fetchContent();
@@ -34,28 +43,47 @@ export default function HowItWorksEditor() {
   };
 
   const addStep = () => {
-    setContent({
-      ...content,
-      steps: [
-        ...content.steps,
-        {
-          title: "New Step",
-          desc: "",
-          icon: ICON_OPTIONS[0],
-        },
-      ],
-    });
+    setContent((prev) => ({
+      ...prev,
+      [language]: {
+        ...prev[language],
+        steps: [
+          ...(prev[language].steps || []),
+          {
+            title: "New Step",
+            desc: "",
+            icon: ICON_OPTIONS[0],
+          },
+        ],
+      },
+    }));
   };
 
   const removeStep = (index) => {
-    const newSteps = content.steps.filter((_, i) => i !== index);
-    setContent({ ...content, steps: newSteps });
+    setContent((prev) => ({
+      ...prev,
+      [language]: {
+        ...prev[language],
+        steps: (prev[language].steps || []).filter((_, i) => i !== index),
+      },
+    }));
   };
 
   const updateStep = (index, field, value) => {
-    const newSteps = [...content.steps];
-    newSteps[index][field] = value;
-    setContent({ ...content, steps: newSteps });
+    setContent((prev) => ({
+      ...prev,
+      [language]: {
+        ...prev[language],
+        steps: (prev[language].steps || []).map((step, i) =>
+          i === index ? { ...step, [field]: value } : step,
+        ),
+      },
+    }));
+  };
+
+  const handleLangChange = (lang) => {
+    setLanguage(lang);
+    localStorage.setItem("lang", lang);
   };
 
   const ICON_OPTIONS = [
@@ -78,6 +106,23 @@ export default function HowItWorksEditor() {
         <List /> How It Works Section
       </h2>
 
+      {/* Language Toggle */}
+      <div className="flex gap-2 mb-4">
+        {LANGUAGES.map((lang) => (
+          <button
+            key={lang.code}
+            onClick={() => handleLangChange(lang.code)}
+            className={`px-3 py-1 rounded font-bold text-xs border transition-all focus:outline-none focus:ring-2 focus:ring-indigo-400/50 ${
+              language === lang.code
+                ? "bg-indigo-600 text-white border-indigo-600"
+                : "bg-gray-200 dark:bg-slate-800 text-gray-700 dark:text-slate-200 border-gray-300 dark:border-slate-600"
+            }`}
+          >
+            {lang.label}
+          </button>
+        ))}
+      </div>
+
       {/* Main Headers */}
       <div className="grid gap-4 mb-6">
         <div>
@@ -86,8 +131,13 @@ export default function HowItWorksEditor() {
           </label>
           <input
             className="w-full bg-gray-50 dark:bg-slate-800 border border-gray-300 dark:border-slate-600 rounded-lg p-3 outline-none focus:border-indigo-500 text-gray-900 dark:text-white"
-            value={content.title}
-            onChange={(e) => setContent({ ...content, title: e.target.value })}
+            value={content[language]?.title || ""}
+            onChange={(e) =>
+              setContent((prev) => ({
+                ...prev,
+                [language]: { ...prev[language], title: e.target.value },
+              }))
+            }
           />
         </div>
         <div>
@@ -96,9 +146,12 @@ export default function HowItWorksEditor() {
           </label>
           <input
             className="w-full bg-gray-50 dark:bg-slate-800 border border-gray-300 dark:border-slate-600 rounded-lg p-3 outline-none focus:border-indigo-500 text-gray-900 dark:text-white"
-            value={content.subtitle}
+            value={content[language]?.subtitle || ""}
             onChange={(e) =>
-              setContent({ ...content, subtitle: e.target.value })
+              setContent((prev) => ({
+                ...prev,
+                [language]: { ...prev[language], subtitle: e.target.value },
+              }))
             }
           />
         </div>
@@ -109,7 +162,7 @@ export default function HowItWorksEditor() {
         <label className="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase block">
           Steps
         </label>
-        {content.steps.map((step, index) => (
+        {(content[language]?.steps || []).map((step, index) => (
           <div
             key={index}
             className="bg-gray-50 dark:bg-slate-800/50 p-4 rounded-xl border border-gray-200 dark:border-slate-600 flex gap-4 items-start"

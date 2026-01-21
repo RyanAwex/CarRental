@@ -1,30 +1,36 @@
 import React, { useState, useEffect } from "react";
-import { Save, ShieldCheck, Plus, Trash2, ImageIcon } from "lucide-react";
 import supabase from "../../config/supabase-client";
+import { Save, ShieldCheck, Plus, Trash2, ImageIcon } from "lucide-react";
+
+const LANGUAGES = [
+  { code: "eg", label: "EN" },
+  { code: "ar", label: "AR" },
+  { code: "fr", label: "FR" },
+];
 
 export default function WhyChooseUsEditor() {
   const [content, setContent] = useState({
-    title: "",
-    subtitle: "",
+    ar: { title: "", subtitle: "", benefits: [] },
+    eg: { title: "", subtitle: "", benefits: [] },
+    fr: { title: "", subtitle: "", benefits: [] },
     imageUrl: "",
-    benefits: [],
   });
   const [loading, setLoading] = useState(true);
+  const [language, setLanguage] = useState(
+    () => localStorage.getItem("lang") || "eg",
+  );
 
-  const fetchContent = async () => {
-    const { data } = await supabase
-      .from("site_content")
-      .select("content")
-      .eq("section_key", "why_choose_us")
-      .single();
-    if (data) setContent(data.content);
-    setLoading(false);
-  };
   useEffect(() => {
-    const fetchData = async () => {
-      await fetchContent();
+    const fetchContent = async () => {
+      const { data } = await supabase
+        .from("site_content")
+        .select("content")
+        .eq("section_key", "why_choose_us")
+        .single();
+      if (data && data.content) setContent(data.content);
+      setLoading(false);
     };
-    fetchData();
+    fetchContent();
   }, []);
 
   const handleSave = async () => {
@@ -37,23 +43,47 @@ export default function WhyChooseUsEditor() {
   };
 
   const updateBenefit = (index, field, value) => {
-    const newBenefits = [...content.benefits];
-    newBenefits[index][field] = value;
-    setContent({ ...content, benefits: newBenefits });
+    setContent((prev) => ({
+      ...prev,
+      [language]: {
+        ...prev[language],
+        benefits: prev[language].benefits.map((b, i) =>
+          i === index ? { ...b, [field]: value } : b,
+        ),
+      },
+    }));
   };
 
   const addBenefit = () => {
-    setContent({
-      ...content,
-      benefits: [...content.benefits, { title: "New Benefit", desc: "" }],
-    });
+    setContent((prev) => ({
+      ...prev,
+      [language]: {
+        ...prev[language],
+        benefits: [
+          ...prev[language].benefits,
+          { title: "New Benefit", desc: "" },
+        ],
+      },
+    }));
   };
 
   const removeBenefit = (index) => {
-    setContent({
-      ...content,
-      benefits: content.benefits.filter((_, i) => i !== index),
-    });
+    setContent((prev) => ({
+      ...prev,
+      [language]: {
+        ...prev[language],
+        benefits: prev[language].benefits.filter((_, i) => i !== index),
+      },
+    }));
+  };
+
+  const handleLangChange = (lang) => {
+    setLanguage(lang);
+    localStorage.setItem("lang", lang);
+  };
+
+  const handleImageChange = (value) => {
+    setContent((prev) => ({ ...prev, imageUrl: value }));
   };
 
   if (loading)
@@ -67,6 +97,23 @@ export default function WhyChooseUsEditor() {
         <ShieldCheck /> Edit "Why Choose Us"
       </h2>
 
+      {/* Language Toggle */}
+      <div className="flex gap-2 mb-4">
+        {LANGUAGES.map((lang) => (
+          <button
+            key={lang.code}
+            onClick={() => handleLangChange(lang.code)}
+            className={`px-3 py-1 rounded font-bold text-xs border transition-all focus:outline-none focus:ring-2 focus:ring-indigo-400/50 ${
+              language === lang.code
+                ? "bg-indigo-600 text-white border-indigo-600"
+                : "bg-gray-200 dark:bg-slate-800 text-gray-700 dark:text-slate-200 border-gray-300 dark:border-slate-600"
+            }`}
+          >
+            {lang.label}
+          </button>
+        ))}
+      </div>
+
       {/* Main Section Info */}
       <div className="space-y-4 mb-8">
         <div>
@@ -75,8 +122,13 @@ export default function WhyChooseUsEditor() {
           </label>
           <input
             className="w-full bg-gray-50 dark:bg-slate-800 border border-gray-300 dark:border-slate-600 rounded-lg p-3 outline-none focus:border-indigo-500 transition-colors text-gray-900 dark:text-white"
-            value={content.title}
-            onChange={(e) => setContent({ ...content, title: e.target.value })}
+            value={content[language]?.title || ""}
+            onChange={(e) =>
+              setContent((prev) => ({
+                ...prev,
+                [language]: { ...prev[language], title: e.target.value },
+              }))
+            }
           />
         </div>
         <div>
@@ -86,9 +138,12 @@ export default function WhyChooseUsEditor() {
           <textarea
             className="w-full bg-gray-50 dark:bg-slate-800 border border-gray-300 dark:border-slate-600 rounded-lg p-3 outline-none focus:border-indigo-500 transition-colors text-gray-900 dark:text-white"
             rows="2"
-            value={content.subtitle}
+            value={content[language]?.subtitle || ""}
             onChange={(e) =>
-              setContent({ ...content, subtitle: e.target.value })
+              setContent((prev) => ({
+                ...prev,
+                [language]: { ...prev[language], subtitle: e.target.value },
+              }))
             }
           />
         </div>
@@ -98,10 +153,8 @@ export default function WhyChooseUsEditor() {
           </label>
           <input
             className="w-full bg-gray-50 dark:bg-slate-800 border border-gray-300 dark:border-slate-600 rounded-lg p-3 outline-none focus:border-indigo-500 transition-colors text-gray-900 dark:text-white"
-            value={content.imageUrl}
-            onChange={(e) =>
-              setContent({ ...content, imageUrl: e.target.value })
-            }
+            value={content.imageUrl || ""}
+            onChange={(e) => handleImageChange(e.target.value)}
           />
         </div>
       </div>
@@ -111,7 +164,7 @@ export default function WhyChooseUsEditor() {
         <label className="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase block">
           Benefit Points
         </label>
-        {content.benefits.map((item, index) => (
+        {content[language]?.benefits?.map((item, index) => (
           <div
             key={index}
             className="bg-gray-50 dark:bg-slate-800/50 p-4 rounded-xl border border-gray-200 dark:border-slate-600 flex gap-4 relative group"

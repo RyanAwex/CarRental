@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Sun, Moon } from "lucide-react";
 
-const ThemeToggle = ({ className = "" }) => {
+const ThemeToggle = () => {
   const [isDark, setIsDark] = useState(() => {
     // Check localStorage first, then fall back to DOM class
     const saved = localStorage.getItem("theme");
@@ -29,7 +29,7 @@ const ThemeToggle = ({ className = "" }) => {
   return (
     <button
       onClick={toggleTheme}
-      className={`relative p-2.5 rounded-xl transition-all  cursor-pointer group overflow-hidden ${className}`}
+      className={`relative p-2.5 text-gray-700 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-white transition-all  rounded-xl hover:bg-gray-100 dark:hover:bg-white/10 group`}
       aria-label="Toggle theme"
     >
       {/* Background glow effect */}
@@ -40,15 +40,19 @@ const ThemeToggle = ({ className = "" }) => {
         {/* Sun icon */}
         <Sun
           size={20}
-          className={`absolute inset-0 transition-all hover:cursor-pointer  ${
-            isDark ? "opacity-0 scale-0" : "opacity-100 text-black scale-100"
+          className={`absolute inset-0 transition-all hover:cursor-pointer group-hover:text-indigo-400 ${
+            isDark
+              ? "opacity-100 text-gray-700 dark:text-slate-300 scale-100"
+              : "opacity-0 scale-0"
           }`}
         />
         {/* Moon icon */}
         <Moon
           size={20}
-          className={`absolute inset-0 transition-all  ${
-            isDark ? "opacity-100 scale-100" : "opacity-0  scale-0"
+          className={`absolute inset-0 transition-all group-hover:text-indigo-400  ${
+            isDark
+              ? "opacity-0  scale-0"
+              : "opacity-100 scale-100 text-gray-700 dark:text-slate-300"
           }`}
         />
       </div>

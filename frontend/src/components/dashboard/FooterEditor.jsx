@@ -1,18 +1,30 @@
-import { Save } from "lucide-react";
 import React, { useState, useEffect } from "react";
+import { Save } from "lucide-react";
 import supabase from "../../config/supabase-client";
 
 export default function FooterEditor() {
   const [content, setContent] = useState({
-    description: "",
     address: "",
     phone: "",
     email: "",
     facebook: "",
     twitter: "",
     instagram: "",
+    ar_description: "",
+    eg_description: "",
+    fr_description: "",
   });
+
+  const LANGUAGES = [
+    { code: "eg", label: "EN" },
+    { code: "ar", label: "AR" },
+    { code: "fr", label: "FR" },
+  ];
+
   const [loading, setLoading] = useState(true);
+  const [language, setLanguage] = useState(
+    () => localStorage.getItem("lang") || "eg",
+  );
 
   useEffect(() => {
     const fetchContent = async () => {
@@ -21,7 +33,7 @@ export default function FooterEditor() {
         .select("content")
         .eq("section_key", "footer")
         .single();
-      if (data) setContent(data.content);
+      if (data && data.content) setContent(data.content);
       setLoading(false);
     };
     fetchContent();
@@ -36,6 +48,11 @@ export default function FooterEditor() {
     alert("Footer updated!");
   };
 
+  const handleLangChange = (lang) => {
+    setLanguage(lang);
+    localStorage.setItem("lang", lang);
+  };
+
   if (loading)
     return (
       <div className="w-full flex items-center justify-center">Loading...</div>
@@ -45,6 +62,23 @@ export default function FooterEditor() {
     <div className="bg-gray-100 dark:bg-[#1e293b] p-6 rounded-3xl border border-gray-200 dark:border-slate-700 text-gray-900 dark:text-white max-w-3xl mx-auto my-8">
       <h2 className="text-2xl font-bold mb-6">Footer & Contact</h2>
 
+      {/* Language Toggle for Description */}
+      <div className="flex gap-2 mb-4">
+        {LANGUAGES.map((lang) => (
+          <button
+            key={lang.code}
+            onClick={() => handleLangChange(lang.code)}
+            className={`px-3 py-1 rounded font-bold text-xs border transition-all focus:outline-none focus:ring-2 focus:ring-indigo-400/50 ${
+              language === lang.code
+                ? "bg-indigo-600 text-white border-indigo-600"
+                : "bg-gray-200 dark:bg-slate-800 text-gray-700 dark:text-slate-200 border-gray-300 dark:border-slate-600"
+            }`}
+          >
+            {lang.label}
+          </button>
+        ))}
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="md:col-span-2">
           <label className="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase">
@@ -53,9 +87,12 @@ export default function FooterEditor() {
           <textarea
             className="w-full bg-gray-50 dark:bg-slate-800 border border-gray-300 dark:border-slate-600 rounded-lg p-3 outline-none focus:border-indigo-500 text-gray-900 dark:text-white"
             rows="3"
-            value={content.description}
+            value={content[`${language}_description`] || ""}
             onChange={(e) =>
-              setContent({ ...content, description: e.target.value })
+              setContent((prev) => ({
+                ...prev,
+                [`${language}_description`]: e.target.value,
+              }))
             }
           />
         </div>

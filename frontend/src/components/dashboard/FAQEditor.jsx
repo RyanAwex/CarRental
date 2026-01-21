@@ -1,13 +1,25 @@
 // FAQEditor.jsx
 import React, { useState, useEffect } from "react";
-import supabase from "../../config/supabase-client";
 import { Save, HelpCircle, Plus, Trash2 } from "lucide-react";
+import supabase from "../../config/supabase-client";
+
+const LANGUAGES = [
+  { code: "eg", label: "EN" },
+  { code: "ar", label: "AR" },
+  { code: "fr", label: "FR" },
+];
 
 export default function FAQEditor() {
-  const [content, setContent] = useState({ title: "", faqs: [] });
+  const [content, setContent] = useState({
+    ar: { title: "", faqs: [] },
+    eg: { title: "", faqs: [] },
+    fr: { title: "", faqs: [] },
+  });
   const [loading, setLoading] = useState(false);
+  const [language, setLanguage] = useState(
+    () => localStorage.getItem("lang") || "eg",
+  );
 
-  // Fetch FAQs from Supabase on mount
   useEffect(() => {
     const fetchFAQs = async () => {
       setLoading(true);
@@ -16,76 +28,70 @@ export default function FAQEditor() {
         .select("content")
         .eq("section_key", "faq")
         .single();
-      if (error) {
-        setContent({ title: "", faqs: [] });
-      } else if (data && data.content) {
-        // content is a JSON object with faqs array
+      if (error || !data || !data.content) {
         setContent({
-          title: data.content.title || "",
-          faqs: data.content.faqs || [],
+          ar: { title: "", faqs: [] },
+          eg: { title: "", faqs: [] },
+          fr: { title: "", faqs: [] },
         });
+      } else {
+        setContent(data.content);
       }
       setLoading(false);
     };
     fetchFAQs();
   }, []);
 
-  // Add FAQ item
   const addItem = () => {
     setContent((prev) => ({
       ...prev,
-      faqs: prev.faqs
-        ? [...prev.faqs, { question: "", answer: "" }]
-        : [{ question: "", answer: "" }],
+      [language]: {
+        ...prev[language],
+        faqs: [...(prev[language].faqs || []), { question: "", answer: "" }],
+      },
     }));
   };
 
-  // Remove FAQ item
   const removeItem = (index) => {
     setContent((prev) => ({
       ...prev,
-      faqs: prev.faqs.filter((_, i) => i !== index),
+      [language]: {
+        ...prev[language],
+        faqs: (prev[language].faqs || []).filter((_, i) => i !== index),
+      },
     }));
   };
 
-  // Update FAQ item
   const updateItem = (index, field, value) => {
     setContent((prev) => ({
       ...prev,
-      faqs: prev.faqs.map((item, i) =>
-        i === index ? { ...item, [field]: value } : item
-      ),
+      [language]: {
+        ...prev[language],
+        faqs: (prev[language].faqs || []).map((item, i) =>
+          i === index ? { ...item, [field]: value } : item,
+        ),
+      },
     }));
   };
 
-  // Save FAQs to Supabase
   const handleSave = async () => {
     setLoading(true);
-    // Only update the faqs array inside the content JSON, preserving other fields
-    // Fetch the current content first
-    const { data, error: fetchError } = await supabase
-      .from("site_content")
-      .select("content")
-      .eq("section_key", "faq")
-      .single();
-    let newContent = { title: content.title, faqs: content.faqs };
-    if (!fetchError && data && data.content) {
-      newContent = { ...data.content, faqs: content.faqs };
-    }
-    // Use upsert to insert or update the row
     const { error } = await supabase.from("site_content").upsert(
       [
         {
           section_key: "faq",
-          content: newContent,
+          content,
         },
       ],
-      { onConflict: ["section_key"] }
+      { onConflict: ["section_key"] },
     );
-    if (error) {
-      throw error.message;
-    }
     setLoading(false);
+    if (!error) alert("FAQs updated!");
+  };
+
+  const handleLangChange = (lang) => {
+    setLanguage(lang);
+    localStorage.setItem("lang", lang);
   };
 
   if (loading)
@@ -99,19 +105,41 @@ export default function FAQEditor() {
         <HelpCircle /> FAQ Section
       </h2>
 
+      {/* Language Toggle */}
+      <div className="flex gap-2 mb-4">
+        {LANGUAGES.map((lang) => (
+          <button
+            key={lang.code}
+            onClick={() => handleLangChange(lang.code)}
+            className={`px-3 py-1 rounded font-bold text-xs border transition-all focus:outline-none focus:ring-2 focus:ring-indigo-400/50 ${
+              language === lang.code
+                ? "bg-indigo-600 text-white border-indigo-600"
+                : "bg-gray-200 dark:bg-slate-800 text-gray-700 dark:text-slate-200 border-gray-300 dark:border-slate-600"
+            }`}
+          >
+            {lang.label}
+          </button>
+        ))}
+      </div>
+
       <div className="mb-6">
         <label className="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase">
           Section Title
         </label>
         <input
           className="w-full bg-gray-50 dark:bg-slate-800 border border-gray-300 dark:border-slate-600 rounded-lg p-3 outline-none focus:border-indigo-500 text-gray-900 dark:text-white"
-          value={content.title}
-          onChange={(e) => setContent({ ...content, title: e.target.value })}
+          value={content[language]?.title || ""}
+          onChange={(e) =>
+            setContent((prev) => ({
+              ...prev,
+              [language]: { ...prev[language], title: e.target.value },
+            }))
+          }
         />
       </div>
 
       <div className="space-y-4">
-        {content.faqs?.map((item, index) => (
+        {(content[language]?.faqs || []).map((item, index) => (
           <div
             key={index}
             className="bg-gray-50 dark:bg-slate-800/50 p-4 rounded-xl border border-gray-200 dark:border-slate-600 relative group"

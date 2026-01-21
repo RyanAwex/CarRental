@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from "react";
-import { Star, User } from "lucide-react";
 import { useReviewsStore } from "../../store/reviewsStore";
 
 function Reviews() {
@@ -7,21 +6,24 @@ function Reviews() {
     useReviewsStore();
   const scrollRef = useRef(null);
 
+  const currentLanguage = localStorage.getItem("lang") || "eg";
+  const isArabic = currentLanguage === "ar";
+  const isFrench = currentLanguage === "fr";
+
   useEffect(() => {
     fetchReviews();
   }, [fetchReviews]);
 
   const renderStars = (rating) => {
     return Array.from({ length: 5 }, (_, i) => (
-      <Star
+      <span
         key={i}
-        size={16}
-        className={`${
-          i < rating
-            ? "text-yellow-400 fill-yellow-400"
-            : "text-gray-300 dark:text-gray-600"
-        }`}
-      />
+        className={
+          i < rating ? "text-yellow-400" : "text-gray-300 dark:text-gray-600"
+        }
+      >
+        ★
+      </span>
     ));
   };
 
@@ -72,62 +74,64 @@ function Reviews() {
   }
 
   return (
-    <div className="py-16 bg-gray-50 dark:bg-slate-950">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-            What Our Customers Say
-          </h2>
-          <p className="text-gray-500 dark:text-slate-400 max-w-2xl mx-auto">
-            Read genuine reviews from our satisfied customers who have
-            experienced our premium car rental service.
-          </p>
-        </div>
-
-        <div className="w-full mx-2 md:mx-8">
+    <section className="py-20 bg-gray-50 dark:bg-slate-950">
+      <div className="max-w-6xl mx-auto px-4">
+        <h2 className="text-center text-3xl font-bold mb-8">
+          {isFrench
+            ? "Avis des Clients"
+            : !isArabic
+              ? "Customer Reviews"
+              : "تقييمات العملاء"}
+        </h2>
+        <div className="overflow-x-auto custom-scrollbar px-4">
           <div
             ref={scrollRef}
-            className="flex gap-6 pb-5 overflow-x-auto scroll-smooth px-2 md:px-4 scrollbar-hide"
-            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+            className="flex gap-6 p-4"
+            style={{ width: "max-content", scrollSnapType: "x mandatory" }}
           >
-            {reviews.map((review) => (
-              <div
-                key={review.id}
-                className="shrink-0 w-80 bg-white dark:bg-slate-900 rounded-2xl shadow-md hover:shadow-lg border border-gray-200 dark:border-slate-700 p-6"
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 bg-gradient-to-tr from-indigo-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">
-                    {review.user?.email?.charAt(0).toUpperCase() || (
-                      <User size={20} />
+            {reviews.map((review) => {
+              const name = review.user?.email?.split("@")[0] || "Anonymous";
+              const image = review.user?.avatar || review.image || null;
+              const text = review.comment || review.review || "";
+              return (
+                <div
+                  key={review.id}
+                  className="bg-gray-100 dark:bg-[#151925] shadow-sm rounded-lg p-6 transform hover:scale-105 transition-all duration-300 shrink-0 w-[90vw] sm:w-80 lg:w-96"
+                  style={{ scrollSnapAlign: "start" }}
+                >
+                  <div className="flex items-center gap-4 mb-4">
+                    {image ? (
+                      <img
+                        src={image}
+                        alt={name}
+                        className="w-12 h-12 rounded-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center">
+                        <span className="text-gray-600 font-semibold">
+                          {name.charAt(0).toUpperCase()}
+                        </span>
+                      </div>
                     )}
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 dark:text-white">
-                      {review.user?.email?.split("@")[0] || "Anonymous"}
-                    </h4>
-                    <div className="flex items-center gap-1">
-                      {renderStars(review.rating)}
+
+                    <div>
+                      <h3 className="font-semibold text-lg">{name}</h3>
+                      <div className="flex items-center gap-1">
+                        {renderStars(review.rating || 0)}
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <p className="text-gray-600 dark:text-slate-300 leading-relaxed mb-4">
-                  "{review.comment}"
-                </p>
-
-                <div className="text-sm text-gray-500 dark:text-slate-400">
-                  {new Date(review.created_at).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
+                  <p className="text-gray-700 dark:text-slate-300 italic">
+                    "{text}"
+                  </p>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

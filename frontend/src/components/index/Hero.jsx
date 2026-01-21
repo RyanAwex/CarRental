@@ -22,6 +22,10 @@ function Hero({ appData }) {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [popup, setPopup] = useState(null);
 
+  // Get current language
+  const currentLanguage = localStorage.getItem("lang") || "eg";
+  const isArabic = currentLanguage === "ar";
+
   // Show popup for 2 seconds
   const showPopup = (type, message) => {
     setPopup({ type, message });
@@ -164,18 +168,27 @@ function Hero({ appData }) {
 
       <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-          <div className="w-full min-w-0">
-            <div className="inline-flex items-center px-3 py-1 rounded-full border border-indigo-500/30 bg-indigo-50 text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-300 text-xs font-bold mb-6 tracking-wide uppercase">
+          <div
+            className={`w-full min-w-0 ${isArabic ? "lg:order-2" : "lg:order-1"}`}
+          >
+            <div
+              className={`flex items-center px-3 py-1 rounded-full border border-indigo-500/30 bg-indigo-50 text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-300 text-xs font-bold mb-6 tracking-wide uppercase w-fit ${isArabic ? "ml-auto" : ""}`}
+            >
               <span className="w-2 h-2 bg-indigo-400 rounded-full mr-2 animate-pulse"></span>
               Premium Collection {new Date().getFullYear()}
             </div>
-            <h1 className="text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-6 leading-tight">
+            <h1
+              className={`text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-6 leading-tight ${isArabic ? "text-right" : ""}`}
+              dir={isArabic ? "rtl" : "ltr"}
+            >
               {firstPart}{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">
                 {lastPart}
               </span>
             </h1>
-            <p className="text-base sm:text-lg text-gray-600 dark:text-slate-400 mb-8 max-w-lg leading-relaxed">
+            <p
+              className={`text-base sm:text-lg text-gray-600 dark:text-slate-400 mb-8 max-w-lg leading-relaxed ${isArabic ? "text-right ml-auto" : ""}`}
+            >
               {subtitle}
             </p>
 
@@ -447,7 +460,7 @@ function Hero({ appData }) {
                       params.set("location", selectedLocation.id);
                       navigate(`/fleet?${params.toString()}`);
                     }}
-                    className="w-full h-11 px-6 rounded-xl bg-indigo-600 hover:bg-indigo-700 dark:hover:bg-indigo-500 transition-all flex items-center justify-center gap-2 shadow-none dark:shadow-none font-bold text-white cursor-pointer"
+                    className={`w-full h-11 px-6 rounded-xl bg-indigo-600 hover:bg-indigo-700 dark:hover:bg-indigo-500 transition-all flex items-center justify-center gap-2 shadow-none dark:shadow-none font-bold text-white cursor-pointer`}
                   >
                     <Search size={18} className="text-white" />
                     <span>Search</span>
@@ -457,7 +470,9 @@ function Hero({ appData }) {
             </div>
           </div>
 
-          <div className="relative group w-full max-w-md lg:max-w-none mx-auto">
+          <div
+            className={`relative group w-full max-w-md lg:max-w-none mx-auto ${isArabic ? "lg:order-1" : "lg:order-2"}`}
+          >
             <div className="absolute -inset-1 mx-auto bg-gradient-to-r from-indigo-500 to-purple-600 rounded-3xl lg:rounded-3xl blur opacity-25 group-hover:opacity-50 transition 0 -z-10"></div>
             <img
               src={imageUrl}
@@ -465,7 +480,9 @@ function Hero({ appData }) {
               className="relative w-full mx-auto rounded-3xl lg:rounded-3xl shadow-2xl border border-white/10 transform transition-transform hover:scale-[1.01] aspect-video object-center object-cover"
             />
             {/* Floating Card */}
-            <div className="absolute -bottom-4 -left-2 sm:-bottom-6 sm:-left-6 bg-white/90 border border-gray-200 dark:bg-slate-900/90 dark:border-white/10 backdrop-blur-md p-3 sm:p-4 rounded-xl shadow-xl">
+            <div
+              className={`absolute -bottom-4 -left-2 sm:-bottom-6 sm:-left-6 bg-white/90 border border-gray-200 dark:bg-slate-900/90 dark:border-white/10 backdrop-blur-md p-3 sm:p-4 rounded-xl shadow-xl ${isArabic ? "text-right" : ""}`}
+            >
               <div className="flex items-center gap-2 sm:gap-3">
                 <div className="bg-green-500/20 p-1.5 sm:p-2 rounded-full text-green-500 dark:text-green-400">
                   <CheckCircle size={16} className="sm:w-5 sm:h-5" />

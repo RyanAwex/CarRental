@@ -1,7 +1,8 @@
-import { Menu, ShoppingBag, X } from "lucide-react";
+import { Menu, ShoppingBag, X, Globe } from "lucide-react";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import ThemeToggle from "../shared/ThemeToggle";
+import LanguageButton from "../shared/LanguageButton";
 
 const Header = ({ cartCount, isScrolled, session }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -72,6 +73,9 @@ const Header = ({ cartCount, isScrolled, session }) => {
                   </span>
                 )}
               </Link>
+
+              <LanguageButton />
+
               <ThemeToggle />
               {session?.user?.email_confirmed_at ? (
                 session.user.id === import.meta.env.VITE_ADMIN ? (

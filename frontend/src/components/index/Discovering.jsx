@@ -11,6 +11,11 @@ function Discovering({ loading, error, cars }) {
 
   const { addToCart } = useCartStore();
 
+  // Get current language
+  const currentLanguage = localStorage.getItem("lang") || "eg";
+  const isArabic = currentLanguage === "ar";
+  const isFrench = currentLanguage === "fr";
+
   // Show popup for 2 seconds
   const showPopup = (type, message) => {
     setPopup({ type, message });
@@ -54,23 +59,41 @@ function Discovering({ loading, error, cars }) {
         className="py-16 sm:py-24 bg-gray-50 dark:bg-slate-950"
       >
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 sm:mb-12 gap-4">
-            <div>
+          <div
+            className={`flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 sm:mb-12 gap-4 ${isArabic ? "sm:flex-row-reverse" : ""}`}
+          >
+            <div className={`${isArabic ? "text-right" : ""}`}>
               <h2 className="text-2xl sm:text-3xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">
-                Our Premium{" "}
+                {isFrench
+                  ? "Notre Premium"
+                  : !isArabic
+                    ? "Our Premium"
+                    : "أسطولنا"}{" "}
                 <span className="text-indigo-600 dark:text-indigo-500">
-                  Fleet
+                  {isFrench ? "Flotte" : !isArabic ? "Fleet" : "المميز"}
                 </span>
               </h2>
               <p className="text-gray-500 dark:text-slate-400 text-sm sm:text-base">
-                Select from our wide range of luxury vehicles.
+                {isFrench
+                  ? "Choisissez parmi notre large gamme de véhicules de luxe."
+                  : !isArabic
+                    ? "Choose from our wide range of premium vehicles."
+                    : "اختر من بين مجموعتنا الواسعة من المركبات المميزة"}
               </p>
             </div>
             <button
               onClick={() => navigate("/fleet")}
-              className="flex items-center text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300 font-medium transition-colors text-sm sm:text-base"
+              className={`flex items-center text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300 font-medium transition-colors text-sm sm:text-base ${isArabic ? "flex-row-reverse" : ""}`}
             >
-              View All Cars <ArrowRight size={16} className="ml-2" />
+              {isFrench
+                ? "Voir Tous les Véhicules"
+                : !isArabic
+                  ? "View All Vehicles"
+                  : "عرض جميع المركبات"}
+              <ArrowRight
+                size={16}
+                className={`${isArabic ? "mr-2 rotate-180" : "ml-2"}`}
+              />
             </button>
           </div>
 
@@ -133,7 +156,11 @@ function Discovering({ loading, error, cars }) {
                         {c.year}
                       </p>
                       <span className="text-gray-400 dark:text-slate-500 text-xs font-medium">
-                        per day
+                        {isFrench
+                          ? "Par Jour"
+                          : !isArabic
+                            ? "Per Day"
+                            : "لكل يوم"}
                       </span>
                     </div>
 
@@ -163,7 +190,11 @@ function Discovering({ loading, error, cars }) {
                       onClick={() => handleRent(c)}
                       className="w-full bg-indigo-600 hover:bg-indigo-700 dark:hover:bg-indigo-500 text-white py-3 rounded-2xl text-sm font-bold transition-all shadow-lg active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
                     >
-                      Book now
+                      {isFrench
+                        ? "Louer Maintenant"
+                        : !isArabic
+                          ? "Rent Now"
+                          : "استئجار الآن"}
                     </button>
                   </div>
                 </div>
